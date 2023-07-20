@@ -134,7 +134,7 @@ export default function EnhancedTable() {
                 {terminals?.map((t: any) => (
                   <TableRow hover key={t.id}>
                     <TableCell>{t.imei}</TableCell>
-                    <TableCell>{t.etatTerminal}</TableCell>
+                    <TableCell>{t.rfTerminal.etatTerminal}</TableCell>
                     <TableCell>{t.dateReception}</TableCell>
                     <TableCell>{t.dateCession}</TableCell>
                     <TableCell>
