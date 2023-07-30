@@ -64,7 +64,7 @@ const headCells: readonly HeadCell[] = [
     label: "option forfait",
   },
   {
-    id: "statutForfait",
+    id: "rfForfait",
     numeric: false,
     disablePadding: true,
     label: "Statut forfait",
@@ -179,16 +179,16 @@ export default function EnhancedTable() {
               <EnhancedTableHead />
               <TableBody>
 
-                {forfaits?.map((f: any) => {
+                {forfaits?.map((f) => {
                   return (
                     <TableRow hover key={f.id}>
-                      <TableCell key={f.nomForfait}>{f.nomForfait}</TableCell>
-                       <TableCell key={f.soldeAppels}>{f.soldeAppels}</TableCell>
-                      <TableCell key={f.soldeData}>{f.soldeData}</TableCell>
-                      <TableCell key={f.option_forfait}>{f.option_forfait}</TableCell>
-                      <TableCell key={f.statutForfait}>{f.rfForfait.statutForfait}</TableCell> 
-                      <TableCell key={f.montant}>{f.montant}</TableCell>
-                      <TableCell key={f.actions}>{f.actions}
+                      <TableCell>{f.nomForfait}</TableCell>
+                       <TableCell>{f.soldeAppels}</TableCell>
+                      <TableCell>{f.soldeData}</TableCell>
+                      <TableCell>{f.option_forfait}</TableCell>
+                      <TableCell>{f.rfForfait?.statutForfait}</TableCell>
+                      <TableCell>{f.montant}</TableCell>
+                      <TableCell>{f.action}
                       <Tooltip title="Modifier">
                         <IconButton  color="primary"
                                       aria-label="modifier"

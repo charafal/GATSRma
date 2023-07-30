@@ -10,6 +10,8 @@ import ConsulterBeneficiaire from "./components/ConsulterBeneficiaire/ConsulterB
 import ModifierBeneficiaire from "./components/ModifierBeneficiaire/ModifierBeneficiaire";
 import ModifierForfait from "./components/ModifierForfait/ModifierForfait";
 import Terminal from "./pages/Terminal";
+import AjouterForfait from "./components/AjouterForfait/AjouterForfait";
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
                <Route path="/ModifierForfait/:id" element={<ModifierForfait />} /> 
                <Route path="terminals" element={<Terminal />} />
                <Route path="forfaits" element={<Forfait />} />
+               <Route path="ajouterForfait" element={<AjouterForfait />} />
               {/* <Route path="reglement" element={<Reglement />} /> */}
             </Route>
           </Route>

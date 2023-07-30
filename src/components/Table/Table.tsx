@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -55,6 +56,12 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Matricule",
   },
+  // {
+  //   id: "lignes",
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: "NumLigne",
+  // },
   {
     id: "direction",
     numeric: false,
@@ -74,11 +81,18 @@ const headCells: readonly HeadCell[] = [
     label: "Statut bénéficaire",
   },
   {
+    id: "lignes",
+    numeric: true,
+    disablePadding: false,
+    label: "NumLigne",
+  },
+  {
     id: "actions",
     numeric: false,
     disablePadding: false,
     label: "Actions",
   },
+
 ];
 
 function EnhancedTableHead() {
@@ -140,6 +154,14 @@ const BeneficiaireTable = () => {
 
 
   const pageNumbers = Array.from({ length: pageCount }, (_, i) => i + 1);
+  const [lignes, setLignes] = useState([]);
+
+  useEffect(() => {
+    // Récupérer les données des lignes depuis l'API
+    axios.get('http://localhost:8089/lignes/ligne')
+      .then((response) => setLignes(response.data))
+      .catch((error) => console.error('Erreur lors de la récupération des lignes :', error));
+  }, []);
 
   return (
     <Box sx={{ width: "95%", marginX: "2%" }}>
@@ -164,13 +186,16 @@ const BeneficiaireTable = () => {
                   )
                   .map((b: any, index) => {
                     return (
-                      <TableRow hover key={index}>
+                      <TableRow hover key={b.id}>
                         <TableCell key={b.nom}>{b.nom}</TableCell>
                         <TableCell key={b.prenom}>{b.prenom}</TableCell>
                         <TableCell key={b.matricule}>{b.matricule}</TableCell>
                         <TableCell key={b.rfDirection.nomDirection}>{b.rfDirection.nomDirection}</TableCell>
                         <TableCell key={b.centreCout.centreCout}>{b.centreCout.centreCout}</TableCell>
                         <TableCell key={b.rfBeneficiaire.statutBeneficiaire}>{b.rfBeneficiaire.statutBeneficiaire}</TableCell>
+                        <TableCell key={b.lignes && b.lignes.numLigne}>
+                    {b.lignes && b.lignes.numLigne}
+                  </TableCell>
                         <TableCell key={b.actions}>
                           <Tooltip title="Modifier">
                             <IconButton

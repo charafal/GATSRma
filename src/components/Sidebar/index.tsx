@@ -95,9 +95,9 @@ const AppSidebar = ({
               <Stack>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <StyledTypography sx={{ fontSize: 18 }}>
-                    <RenderText value="Application" />
+                    <RenderText value="" />
                   </StyledTypography>
-                  <StyledTypography sx={{ color: "#AF7F1F" }}>
+                  <StyledTypography sx={{ color: "#AF7F1F" }} alignItems={"center"}>
                     <RenderText value="GAT" />
                   </StyledTypography>
                 </Stack>

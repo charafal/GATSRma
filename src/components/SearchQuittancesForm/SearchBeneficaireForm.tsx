@@ -135,7 +135,7 @@ const SearchMultiCriteriaForm = () => {
       console.error(error);
     }
   };
-  const handleAjouter = () => {
+  const handleAjouter = () => { 
    navigate('/BeneficiaireAdd')
   };
   
@@ -154,7 +154,7 @@ const SearchMultiCriteriaForm = () => {
         variant="h6"
         id="tableTitle"
       >
-        <RenderText value="Recherche multicritère" />
+        <RenderText value="Recherche des beneficiaires" />
       </StyledTypography>
       <Paper
         sx={{

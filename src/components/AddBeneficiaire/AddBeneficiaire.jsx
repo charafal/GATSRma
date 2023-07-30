@@ -5,20 +5,33 @@ import StepButton from '@mui/material/StepButton';
 import Typography from '@mui/material/Typography';
 import { TextField, Button, Box, Paper } from '@mui/material';
 import axios from 'axios';
-import {MenuItem } from '@mui/material';
+import {MenuItem ,  FormControl, InputLabel,Select} from '@mui/material';
 import { Fragment, useContext, useEffect, useState } from 'react';
 
 
 import ApiContext from "../../context/ApiContext";
+import { Terminal } from '@mui/icons-material';
 
-const steps = ['Création du bénéficiaire', 'Affecter une ligne', 'Affecter un forfait'];
+const steps = ['Création du bénéficiaire', 'Affecter un terminal', 'Affecter un forfait'];
 
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
+  const [lignes, setLignes] = useState([]);
+const [selectedLigne, setSelectedLigne] = useState('');
+
+
+
   const totalSteps = () => {
     return steps.length;
   };
+  useEffect(() => {
+    // Récupérer la liste des lignes disponibles depuis l'API
+    axios.get("http://localhost:8089/lignes/ligne")
+      .then((response) => setLignes(response.data))
+      .catch((error) => console.error("Erreur lors de la récupération des lignes :", error));
+  }, []);
+  
 
   const completedSteps = () => {
     return Object.keys(completed).length;
@@ -50,6 +63,34 @@ export default function HorizontalNonLinearStepper() {
   const handleStep = (step) => () => {
     setActiveStep(step);
   };
+ 
+  
+  const [telephones, setTelephones] = useState([]);
+  const [selectedTelephone, setSelectedTelephone] = useState('');
+ 
+  const [selectedClasseBeneficiaire, setSelectedClasseBeneficiaire] = useState('');
+
+
+  const handleClasseBeneficiaireChange = (event) => {
+    setSelectedClasseBeneficiaire(event.target.value);
+  };
+  const classesBeneficiaires = [
+    { id: 1, label: 'Classe A' },
+    { id: 2, label: 'Classe B' },
+    { id: 3, label: 'Classe C' },
+  ];
+  
+  useEffect(() => {
+    // Récupérer la liste des téléphones disponibles depuis l'API
+    axios.get('http://localhost:8089/terminals/terminal')
+      .then((response) => setTelephones(response.data))
+      .catch((error) => console.error('Erreur lors de la récupération des téléphones :', error));
+  }, []);
+
+  const handleTelephoneChange = (event) => {
+    setSelectedTelephone(event.target.value);
+  };
+
 
   const handleComplete = async () => {
     const newCompleted = completed;
@@ -66,6 +107,7 @@ export default function HorizontalNonLinearStepper() {
           centreCout:'centrecout',
           rfBeneficiaire:'statutBeneficiaire',
           rfDirections: 'rfDirection',
+          ligne : 'ligne',
           // Autres champs du formulaire
         };
   
@@ -146,18 +188,18 @@ export default function HorizontalNonLinearStepper() {
     fetchRfDirections();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchLigne = async () => {
-  //     try { 
-  //       const response = await axios.get('http://localhost:8089/lignes/RFLingWithstatus?status=En%20Stock');
-  //       setLigne(response.data);
-  //     } catch (error) {
-  //       console.error('Erreur lors de la récupération des lignes :', error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchLigne = async () => {
+      try { 
+        const response = await axios.get('http://localhost:8089/lignes/ligne');
+        setLigne(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des lignes :', error);
+      }
+    };
 
-  //   fetchLigne();
-  // }, []);
+    fetchLigne();
+  }, []);
 
   useEffect(() => {
     const fetchForfait = async () => {
@@ -188,11 +230,16 @@ export default function HorizontalNonLinearStepper() {
     prenom: '',
     matricule: '',
     rfBeneficiaire:'',
-    rfDirection:'',
+    rfDirection:'', 
     centreCout:'',
+    ligne: '',
     // Autres champs du formulaire
   });
-
+ 
+  
+  const handleLigneChange = (event) => {
+    setSelectedLigne(event.target.value);
+  };
 
   const renderForm = (step) => {
     switch (step) {
@@ -255,6 +302,44 @@ export default function HorizontalNonLinearStepper() {
                 ))}
               </TextField>
             </Box>
+            <Box>
+            <FormControl fullWidth variant="outlined" margin="normal">
+              <InputLabel id="select-ligne-label">Ligne</InputLabel>
+              <Select
+                labelId="select-ligne-label"
+                id="select-ligne"
+                value={selectedLigne}
+                onChange={handleLigneChange}
+                label="Ligne"
+              >
+                {lignes.map((ligne) => (
+                  <MenuItem key={ligne.id} value={ligne.id}>
+                    {ligne.nomLigne}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            
+                </Box>
+                <Box>
+                  <FormControl fullWidth variant="outlined" margin="normal">
+                  <InputLabel id="select-classe-beneficiaire-label">Classe de bénéficiaire</InputLabel>
+                  <Select
+                    labelId="select-classe-beneficiaire-label"
+                    id="select-classe-beneficiaire"
+                    value={selectedClasseBeneficiaire}
+                    onChange={handleClasseBeneficiaireChange}
+                    label="Classe de bénéficiaire"
+                  >
+                    {classesBeneficiaires.map((classeBeneficiaire) => (
+                      <MenuItem key={classeBeneficiaire.id} value={classeBeneficiaire.label}>
+                        {classeBeneficiaire.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                </Box>
+          
             <Box sx={{display: 'flex', justifyContent: 'flex-end', py: 1}}>
             <Button onClick={handleCreerBeneficiaire} variant='contained' disableElevation>Creer</Button>
             
@@ -264,25 +349,22 @@ export default function HorizontalNonLinearStepper() {
       case 1:
         return (
           <form>
-            {/* Votre formulaire pour la deuxième étape */}
-            <TextField
-          label="Les numéros de lignes disponnibles"
-          variant="outlined"
-          fullWidth
-          select
-          sx={{ width: '50%' }}
-          value={formData.numLigne}
-          onChange={(e) => setFormData({ ...formData, numLigne: e.target.value })}
-        >
-          {ligne.map((ligne) => (
-            <MenuItem key={ligne.id} value={ligne.id}>
-              {ligne.numLigne}
-            </MenuItem>
-          ))}
-        </TextField>
-
-             
-          </form>
+          <TextField
+            label="Les téléphones disponibles"
+            variant="outlined"
+            fullWidth
+            select
+            sx={{ width: '50%' }}
+            value={selectedTelephone}
+            onChange={handleTelephoneChange}
+          >
+            {telephones.map((telephone) => (
+              <MenuItem key={telephone.id} value={telephone.id}>
+                {telephone.imei} 
+              </MenuItem>
+            ))}
+          </TextField>
+        </form>
         );
       case 2:
         return (

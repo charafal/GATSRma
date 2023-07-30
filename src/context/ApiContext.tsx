@@ -51,6 +51,8 @@ interface IApiContext {
     centreCout,
     rfDirection,
     rfBeneficiaire,
+    lignes,
+    
   }: {
     nom: string;
     prenom: string;
@@ -58,6 +60,8 @@ interface IApiContext {
     centreCout: number;
     rfDirection: number;
     rfBeneficiaire: number;
+    lignes: number;
+    
   }) => Promise<IBeneficiare[]>;
   
   

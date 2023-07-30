@@ -25,18 +25,30 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   }): Promise<IBeneficiare[]> => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        'http://localhost:8089/beneficiaire/recherche?nom=' + nom,
-      );
+      let url = 'http://localhost:8089/beneficiaire/recherche?';
+  
+      if (nom) {
+        url += `nom=${encodeURIComponent(nom)}&`;
+      }
+  
+      if (prenom) {
+        url += `prenom=${encodeURIComponent(prenom)}&`;
+      }
+  
+      if (matricule) {
+        url += `matricule=${encodeURIComponent(matricule)}`;
+      }
+  
+      const response = await axios.get(url);
       console.log(response.data);
       setBeneficaires(response.data as IBeneficiare[]);
-      
+  
       setLoading(false);
       return response.data as IBeneficiare[];
     } catch (error) {
       console.log(error);
       setLoading(false);
-      return []; 
+      return [];
     }
   };
   const getForfaits = async ({
@@ -100,6 +112,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     centreCout,
     rfDirection,
     rfBeneficiaire,
+    lignes,
   }: {
     nom: string;
     prenom: string;
@@ -107,6 +120,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     centreCout: number;
     rfDirection: number;
     rfBeneficiaire: number;
+    lignes: number;
   }): Promise<IBeneficiare[]> => {
     setLoading(true);
     try {
@@ -120,6 +134,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
           rfDirection: {id: rfDirection},
           rfBeneficiaire: {id: rfBeneficiaire},
           centreCout: {id: centreCout},
+          lignes: {id: lignes},
         }
       );
       {console.log(response.data);
