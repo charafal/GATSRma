@@ -1,6 +1,14 @@
+// {
+//   "extends": ["react-app", "react-app/jest", "prettier"],
+//   "rules": {
+//     "semi": "warn"
+//   }
+// }
 {
-  "extends": ["react-app", "react-app/jest", "prettier"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "semi": "warn"
+    // Add any additional ESLint rules or override existing ones if needed.
   }
 }
+

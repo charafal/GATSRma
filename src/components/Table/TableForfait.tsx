@@ -123,12 +123,20 @@ function EnhancedTableToolbar() {
 
 export default function EnhancedTable() {
   const [dense, setDense] = React.useState(true);
-
   const { forfaits } = React.useContext(ApiContext);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const itemsPerPage = 5;
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeDense = (event: { target: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
     setDense(event.target.checked);
   };
+  const handlePageChange = (event: any, value: React.SetStateAction<number>) => {
+    setCurrentPage(value);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentForfaits = forfaits?.slice(startIndex, endIndex);
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -163,37 +171,31 @@ export default function EnhancedTable() {
             >
               <EnhancedTableHead />
               <TableBody>
-
-                {forfaits?.map((f) => {
+                {currentForfaits?.map((f) => {
                   return (
                     <TableRow hover key={f.id}>
                       <TableCell>{f.nomForfait}</TableCell>
-                       <TableCell>{f.soldeAppels}</TableCell>
+                      <TableCell>{f.soldeAppels}</TableCell>
                       <TableCell>{f.soldeData}</TableCell>
                       <TableCell>{f.option_forfait}</TableCell>
                       <TableCell>{f.rfForfait?.statutForfait}</TableCell>
                       <TableCell>{f.montant}</TableCell>
-                      <TableCell>{f.action}
-                      <Tooltip title="Modifier">
-                        <IconButton  color="primary"
-                                      aria-label="modifier"
-                                      component={Link}
-                                      to={`/modifierForfait/${f.id}`}
-                                     >
-                          
-                          <EditIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Consulter">
-                      <IconButton
-                          color="primary"
-                          aria-label="consulter"
-                          
-                        >
-                          <VisibilityIcon />
-                        </IconButton>
-
-      </Tooltip>
+                      <TableCell>
+                        <Tooltip title="Modifier">
+                          <IconButton
+                            color="primary"
+                            aria-label="modifier"
+                            component={Link}
+                            to={`/modifierForfait/${f.id}`}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Consulter">
+                          <IconButton color="primary" aria-label="consulter">
+                            <VisibilityIcon />
+                          </IconButton>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                   );
@@ -208,7 +210,13 @@ export default function EnhancedTable() {
               width: 'fit-content',
               alignItems: 'center',
             }}
-          ></Box>
+          >
+            <Pagination
+              count={Math.ceil((forfaits?.length || 0) / itemsPerPage)}
+              page={currentPage}
+              onChange={handlePageChange}
+            />
+          </Box>
         </Paper>
         <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}

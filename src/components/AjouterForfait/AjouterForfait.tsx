@@ -282,7 +282,12 @@ function HorizontalNonLinearStepper() {
   const handleCreerForfait = async () => {
     console.log('handleCreerForfait: ' + formData.rfForfait);
     try {
-      const data = await addForfait({ ...formData });
+      const data = await addForfait({      nomForfait: formData.nomForfait,
+        option_forfait: formData.optionForfait,
+        soldeData: formData.soldeData,
+        soldeAppels: formData.soldeAppels,
+        montant: formData.montant,
+        });
     } catch (error) {
       console.error(error);
     }
