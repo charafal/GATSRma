@@ -1,17 +1,29 @@
 import { Call, LineAxis, People, Policy } from '@mui/icons-material';
 import { Box } from '@mui/joy';
-import { Grid, Stack, Typography } from '@mui/material';
-import { PieChart } from '@mui/x-charts/PieChart';
+import { Grid, Paper, Stack, Typography } from '@mui/material';
+import {
+  Pie,
+  PieChart,
+  Tooltip,
+  Cell,
+  ResponsiveContainer,
+  BarChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Bar,
+} from 'recharts';
 
 const Card = ({ circleColor, icon, title, number }) => {
   return (
-    <Box
+    <Paper
       sx={{
         p: 3,
         bgcolor: 'white',
         boxShadow:
           'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px',
         borderRadius: '20px',
+        height: '100%',
       }}
     >
       <Stack direction={'row'} justifyContent={'space-between'} height={'100%'}>
@@ -49,7 +61,7 @@ const Card = ({ circleColor, icon, title, number }) => {
           {icon}
         </Box>
       </Stack>
-    </Box>
+    </Paper>
   );
 };
 
@@ -60,7 +72,7 @@ const data = [
     title: 'Bénéficiaires',
     number: 32,
   },
-  { circleColor: '#10b981', icon: <People />, title: 'Lignes', number: 1.6 },
+  { circleColor: '#10b981', icon: <People />, title: 'Lignes', number: 60 },
   {
     circleColor: '#f79009',
     icon: <Call />,
@@ -69,6 +81,101 @@ const data = [
   },
   { circleColor: '#6366f1', icon: <Policy />, title: 'Forfaits', number: 15 },
 ];
+
+const pieData = [
+  {
+    name: 'Lignes',
+    value: 60,
+    label: 'Lignes',
+  },
+  {
+    name: 'Terminaux',
+    value: 32,
+    label: 'Terminaux',
+  },
+  {
+    name: 'Forfaits',
+    value: 15,
+    label: 'Forfaits',
+  },
+];
+
+const barData = [
+  {
+    name: 'Jan',
+    'This year': 4000,
+    'Last year': 2400,
+    amt: 2400,
+  },
+  {
+    name: 'Feb',
+    'This year': 3000,
+    'Last year': 1398,
+    amt: 2210,
+  },
+  {
+    name: 'Mar',
+    'This year': 2000,
+    'Last year': 9800,
+    amt: 2290,
+  },
+  {
+    name: 'Apr',
+    'This year': 2780,
+    'Last year': 3908,
+    amt: 2000,
+  },
+  {
+    name: 'May',
+    'This year': 1890,
+    'Last year': 4800,
+    amt: 2181,
+  },
+  {
+    name: 'Jun',
+    'This year': 2390,
+    'Last year': 3800,
+    amt: 2500,
+  },
+  {
+    name: 'Jul',
+    'This year': 3490,
+    'Last year': 4300,
+    amt: 2100,
+  },
+  {
+    name: 'Aug',
+    'This year': 3490,
+    'Last year': 4300,
+    amt: 2100,
+  },
+  {
+    name: 'Sep',
+    'This year': 3490,
+    'Last year': 4300,
+    amt: 2100,
+  },
+  {
+    name: 'Oct',
+    'This year': 3490,
+    'Last year': 4300,
+    amt: 2100,
+  },
+  {
+    name: 'Nov',
+    'This year': 3490,
+    'Last year': 4300,
+    amt: 2100,
+  },
+  {
+    name: 'Dec',
+    'This year': 3490,
+    'Last year': 4300,
+    amt: 2100,
+  },
+];
+
+const colors = ['#f04438', '#10b981', '#f79009'];
 
 export default function Dashboard() {
   return (
@@ -79,32 +186,103 @@ export default function Dashboard() {
             <Card {...item} />
           </Grid>
         ))}
-        <Grid item lg={3}>
-          <Box
+        <Grid item lg={9} md={8} sm={12} xs>
+          <Paper
             sx={{
               p: 3,
               bgcolor: 'white',
               boxShadow:
                 'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px',
               borderRadius: '20px',
+              height: '100%',
             }}
           >
-            <PieChart
-              colors={['#f04438', '#10b981', '#f79009']}
-              legend={{ hidden: true }}
-              series={[
-                {
-                  innerRadius: 55,
-                  data: [
-                    { id: 0, value: 10, label: 'Bénéficiaires' },
-                    { id: 1, value: 15, label: 'Lignes' },
-                    { id: 2, value: 15, label: 'Terminaux' },
-                  ],
-                },
-              ]}
-              height={200}
-            />
-          </Box>
+            <Stack gap={4} sx={{ width: '100%', height: '100%' }}>
+              <Typography variant="h3" fontWeight={'700'} fontSize={'1.125rem'}>
+                Bénéficiaires
+              </Typography>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  width={500}
+                  height={300}
+                  data={barData}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="0 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'white',
+                      opacity: 0.85,
+                      borderRadius: '10px',
+                      boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.2)',
+                      border: 'none',
+                    }}
+                    itemStyle={{ fontSize: '12px' }}
+                  />
+                  <Bar dataKey="This year" fill="#6366F1" />
+                  <Bar dataKey="Last year" fill="#6366f13d" />
+                </BarChart>
+              </ResponsiveContainer>
+            </Stack>
+          </Paper>
+        </Grid>
+        <Grid item lg={3} md={4} sm xs>
+          <Paper
+            sx={{
+              p: 3,
+              bgcolor: 'white',
+              boxShadow:
+                'rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 0px 0.5px',
+              borderRadius: '20px',
+              height: '100%',
+            }}
+          >
+            <Stack gap={4} alignItems={'center'}>
+              <Typography
+                variant="h3"
+                fontWeight={'700'}
+                fontSize={'1.125rem'}
+                alignSelf={'flex-start'}
+              >
+                Traffic
+              </Typography>
+              <PieChart width={250} height={250}>
+                <Pie
+                  data={pieData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="40%"
+                  innerRadius={60}
+                  outerRadius={100}
+                >
+                  {data.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={colors[index % colors.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'black',
+                    opacity: 0.85,
+                    borderRadius: '10px',
+                    boxShadow: '1px 1px 5px 0px rgba(0,0,0,0.2)',
+                    border: 'none',
+                  }}
+                  itemStyle={{ color: 'white', fontSize: '12px' }}
+                />
+              </PieChart>
+            </Stack>
+          </Paper>
         </Grid>
       </Grid>
     </Box>

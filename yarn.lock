@@ -1038,7 +1038,7 @@
   "resolved" "https://registry.npmjs.org/@babel/regjsgen/-/regjsgen-0.8.0.tgz"
   "version" "0.8.0"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.22.6", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.7", "@babel/runtime@^7.21.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   "integrity" "sha512-wDb5pWm4WDdF6LFUde3Jl8WzPA+3ZbxYqkC6xAXuD3irdEHN1k0NfTRrJD8ZD378SJ61miMLCqIOXYhd8x+AJQ=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.22.6.tgz"
   "version" "7.22.6"
@@ -1870,18 +1870,6 @@
     "@types/react-is" "^18.2.0"
     "prop-types" "^15.8.1"
     "react-is" "^18.2.0"
-
-"@mui/x-charts@^6.0.0-alpha.5":
-  "integrity" "sha512-XWG5RyHCfbt4Pm7CbztLNSIex69gHGBDcFSWNAVPKl2WMSh8j9D4gV7OMaK4PjYEAIAOOHtsAY3m8q6pKlifAw=="
-  "resolved" "https://registry.npmjs.org/@mui/x-charts/-/x-charts-6.0.0-alpha.5.tgz"
-  "version" "6.0.0-alpha.5"
-  dependencies:
-    "@babel/runtime" "^7.22.6"
-    "clsx" "^1.2.1"
-    "d3-color" "^3.1.0"
-    "d3-scale" "^4.0.2"
-    "d3-shape" "^3.2.0"
-    "prop-types" "^15.8.1"
 
 "@mui/x-data-grid@^6.2.1":
   "integrity" "sha512-L4CJb2zJDkyBXItfY1QwXt57ap1vIigPGiNrmuJZ8APS1jHafO1dftBWSfJyDJXsnQ5UsDBXsX1nagX51AebpQ=="
@@ -4043,7 +4031,7 @@
   dependencies:
     "internmap" "1 - 2"
 
-"d3-color@^3.1.0", "d3-color@1 - 3":
+"d3-color@1 - 3":
   "integrity" "sha512-zg/chbXyeBtMQ1LbD/WSoW2DpC3I0mpmPdW+ynRTj/x2DAWYrIY7qeZIHidozwV24m4iavr15lNwIwLxRmOxhA=="
   "resolved" "https://registry.npmjs.org/d3-color/-/d3-color-3.1.0.tgz"
   "version" "3.1.0"
@@ -4081,7 +4069,7 @@
     "d3-time" "2.1.1 - 3"
     "d3-time-format" "2 - 4"
 
-"d3-shape@^3.1.0", "d3-shape@^3.2.0":
+"d3-shape@^3.1.0":
   "integrity" "sha512-SaLBuwGm3MOViRq2ABk3eLoxwZELpH6zhl3FbAoJ7Vm1gofKx6El1Ib5z23NUEhF9AsGl7y+dzLe5Cw2AArGTA=="
   "resolved" "https://registry.npmjs.org/d3-shape/-/d3-shape-3.2.0.tgz"
   "version" "3.2.0"
@@ -8428,10 +8416,10 @@
   dependencies:
     "decimal.js-light" "^2.4.1"
 
-"recharts@^2.5.0":
-  "integrity" "sha512-lr4rVlyddTjhXbX6doElETM/2ya1BJ7L367rdAwMavL68DVn/Zkm1hcdlZtOX2QT2yaR8sQ5Ana66HPT7lFDIA=="
-  "resolved" "https://registry.npmjs.org/recharts/-/recharts-2.7.1.tgz"
-  "version" "2.7.1"
+"recharts@^2.7.2":
+  "integrity" "sha512-HMKRBkGoOXHW+7JcRa6+MukPSifNtJlqbc+JreGVNA407VLE/vOP+8n3YYjprDVVIF9E2ZgwWnL3D7K/LUFzBg=="
+  "resolved" "https://registry.npmjs.org/recharts/-/recharts-2.7.2.tgz"
+  "version" "2.7.2"
   dependencies:
     "classnames" "^2.2.5"
     "eventemitter3" "^4.0.1"
