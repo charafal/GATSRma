@@ -179,15 +179,16 @@ export default function EnhancedTable() {
               <EnhancedTableHead />
               <TableBody>
 
-                {forfaits?.map((f) => {
+                {forfaits?.map((f: any, index)  => {
                   return (
                     <TableRow hover key={f.id}>
-                      <TableCell>{f.nomForfait}</TableCell>
-                       <TableCell>{f.soldeAppels}</TableCell>
-                      <TableCell>{f.soldeData}</TableCell>
-                      <TableCell>{f.option_forfait}</TableCell>
-                      <TableCell>{f.rfForfait?.statutForfait}</TableCell>
-                      <TableCell>{f.montant}</TableCell>
+                      <TableCell key={f.nomForfait}>{f.nomForfait}</TableCell>
+                       <TableCell key={f.soldeAppels}>{f.soldeAppels}</TableCell>
+                      <TableCell key={f.soldeData}>{f.soldeData}</TableCell>
+                      <TableCell key={f.option_forfait}>{f.option_forfait}</TableCell>
+                      <TableCell key={f.rfForfait && f.rfForfait.statutForfait} >{f.rfForfait && f.rfForfait.statutForfait}
+</TableCell>
+                      <TableCell key={f.montant}>{f.montant}</TableCell>
                       <TableCell>{f.action}
                       <Tooltip title="Modifier">
                         <IconButton  color="primary"

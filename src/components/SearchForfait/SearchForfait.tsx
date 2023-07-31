@@ -34,6 +34,7 @@ const ForfaitSearch = () => {
   const [soldeData, setSoldeData] = useState("");
   const [soldeAppels, setSoldeAppels] = useState("");
   const [montant, setMontant] = useState("");
+  const [option_forfait, setOption_forfait] = useState("");
 
 
   useEffect(() => {
@@ -73,6 +74,7 @@ const ForfaitSearch = () => {
       await getForfaits({
         nomForfait: nomForfait,
         soldeData: soldeData,
+     
         soldeAppels: soldeAppels,
         montant: montant,
       });

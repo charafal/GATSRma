@@ -15,7 +15,7 @@ const steps = ['Création du forfait', 'Affecter une ligne', 'Affecter un forfai
 function  HorizontalNonLinearStepper (){
   
   const [nomForfait, setNomForfait] = useState('');
-  const [optionForfait, setOptionForfait] = useState('');
+  const [option_forfait, setoption_forfait] = useState('');
   const [soldeData, setSoldeData] = useState('');
   const [soldeAppels, setSoldeAppels] = useState('');
   const [montant, setMontant] = useState('');
@@ -25,6 +25,18 @@ function  HorizontalNonLinearStepper (){
   const [forfait, setForfait] = useState<Forfait[]>([]);
  
   const [rfForfait, setRFForfait] = useState<RFForfait[]>([]);
+  useEffect(() => {
+    const fetchRfForfait = async () => {
+      try {
+        const response = await axios.get('http://localhost:8089/rfForfaits/forfait');
+        setRFForfait(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des RfForfaits :', error);
+      }
+    };
+
+    fetchRfForfait();
+  }, []);
 
   const totalSteps = () => {
     return steps.length;
@@ -32,6 +44,7 @@ function  HorizontalNonLinearStepper (){
   interface Forfait {
     id: number;
     nomForfait: string;
+    option_forfait : string;
     // Add other properties if they exist in your data
   } 
 
@@ -64,7 +77,7 @@ function  HorizontalNonLinearStepper (){
   };
   const [formData, setFormData] = useState({
     nomForfait: '',
-        optionForfait: '',
+    option_forfait: '',
         soldeData: '',
         soldeAppels: '',
         montant: '',
@@ -156,8 +169,8 @@ function  HorizontalNonLinearStepper (){
               label="Option forfait"
               variant="outlined"
               fullWidth
-              value={formData.optionForfait}
-              onChange={(e) => setFormData({ ...formData, optionForfait: e.target.value })}
+              value={formData.option_forfait}
+              onChange={(e) => setFormData({ ...formData, option_forfait: e.target.value })}
             />
           </Box>
           <Box sx={{ display: 'flex', gap: '20px', margin: '10px' }}>
@@ -185,9 +198,9 @@ function  HorizontalNonLinearStepper (){
               value={formData.rfForfait}
               onChange={(e) => setFormData({ ...formData, rfForfait: e.target.value })}
             >
-              {rfForfait.map((rfForait) => (
-                      <MenuItem key={rfForait.id} value={rfForait.id}>
-                        {rfForait.statutForfait}
+              {rfForfait.map((rfForfait) => (
+                      <MenuItem key={rfForfait.id} value={rfForfait.id}>
+                        {rfForfait.statutForfait}
                       </MenuItem>
                   ))}
               </TextField>

@@ -314,7 +314,7 @@ const [selectedLigne, setSelectedLigne] = useState('');
               >
                 {lignes.map((ligne) => (
                   <MenuItem key={ligne.id} value={ligne.id}>
-                    {ligne.nomLigne}
+                    {ligne.numLigne}
                   </MenuItem>
                 ))}
               </Select>
