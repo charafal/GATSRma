@@ -11,7 +11,7 @@ interface IContextProviderProps {
 const ContextProvider = ({ children }: IContextProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [beneficaires, setBeneficaires] = useState<IBeneficiare[] | null>(null);
-  const [forfaits, setForfaits]= useState<IForfait[]>([]);
+  const [forfaits, setForfaits]= useState<IForfait[] | null>(null);
   const [terminals, setTerminals]= useState<ITerminal[]>([]);
 
   const getBeneficiaires = async ({
@@ -150,10 +150,47 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
       return []; 
     }
   };
+  const addForfait = async ({
+    nomForfait,
+    soldeData,
+    soldeAppels,
+    montant,
+  }: {
+    nomForfait: string;
+    soldeData: string;
+    soldeAppels: string;
+    montant: string;
+  }): Promise<IForfait[]> => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        'http://localhost:8089/forfaits', // Remplacez l'URL par l'URL de votre API pour ajouter un forfait
+        {
+          nomForfait: nomForfait,
+          soldeData: soldeData,
+          soldeAppels: soldeAppels,
+          montant: montant,
+        }
+      );
+  
+      // Ici, vous pouvez effectuer des traitements supplémentaires si nécessaire avec la réponse de l'API
+  
+      setLoading(false);
+      setForfaits(response.data as IForfait[]); // Assurez-vous d'avoir défini setForfaits et loading dans votre composant
+  
+      return response.data as IForfait[];
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      return [];
+    }
+  };
+  
 
   const apiContextValue = {
     getBeneficiaires,
     addBeneficiaire,
+    addForfait,
     getForfaits,
     getTerminals,
     forfaits: forfaits,
@@ -170,3 +207,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
 };
 
 export default ContextProvider;
+
+function async(arg0: { nomForfait: any; soldeAppel: any; soldeData: any; montant: any; }, arg1: { nomForfait: any; }) {
+  throw new Error('Function not implemented.');
+}

@@ -12,7 +12,7 @@ import Forfait from '../../pages/Forfait';
 
 const steps = ['Création du forfait', 'Affecter une ligne', 'Affecter un forfait'];
 
-export default function HorizontalNonLinearStepper (){
+function  HorizontalNonLinearStepper (){
   
   const [nomForfait, setNomForfait] = useState('');
   const [optionForfait, setOptionForfait] = useState('');
@@ -23,6 +23,9 @@ export default function HorizontalNonLinearStepper (){
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState<{ [key: number]: boolean }>({});
   const [forfait, setForfait] = useState<Forfait[]>([]);
+ 
+  const [rfForfait, setRFForfait] = useState<RFForfait[]>([]);
+
   const totalSteps = () => {
     return steps.length;
   };
@@ -68,6 +71,11 @@ export default function HorizontalNonLinearStepper (){
         rfForfait: '',
     // Autres champs du formulaire
   });
+  interface RFForfait {
+    id: number;
+    statutForfait: string;
+  }
+  
   const handleComplete = async () => {
     const newCompleted = completed;
     newCompleted[activeStep] = true;
@@ -84,50 +92,50 @@ export default function HorizontalNonLinearStepper (){
 
   // Autres états et fonctions
 
-  const handleCreerForfait = async () => {
-    if(allStepsCompleted()){  
-    try {
-      // Récupérez les données du formulaire
-      const formData = {
-        nomForfait,
-        optionForfait,
-        soldeData,
-        soldeAppels,
-        montant,
-        rfForfait: {
-          statutForfait,
-        },
-      };
+//   const handleCreerForfait = async () => {
+//     if(allStepsCompleted()){  
+//     try {
+//       // Récupérez les données du formulaire
+//       const formData = {
+//         nomForfait,
+//         optionForfait,
+//         soldeData,
+//         soldeAppels,
+//         montant,
+//         rfForfait: {
+//           statutForfait,
+//         },
+//       };
 
-      // Envoyez les données au backend en utilisant une requête POST
-      const response = await axios.post('http://localhost:8089/forfaits', formData);
+//       // Envoyez les données au backend en utilisant une requête POST
+//       const response = await axios.post('http://localhost:8089/forfaits', formData);
 
-      // Vérifiez la réponse du backend et effectuez des actions en conséquence
-      if (response.status === 200) {
-        console.log('Forfait ajouté avec succès !');
-        // Effectuez ici d'autres actions ou affichez un message de succès à l'utilisateur
-        alert('Forfait ajouté avec succès !');
-      } else {
-        console.log("Erreur lors de l'ajout du forfait");
-        // Effectuez ici d'autres actions ou affichez un message d'erreur à l'utilisateur
-        alert('Erreur lors de l\'ajout du forfait');
-      }
+//       // Vérifiez la réponse du backend et effectuez des actions en conséquence
+//       if (response.status === 200) {
+//         console.log('Forfait ajouté avec succès !');
+//         // Effectuez ici d'autres actions ou affichez un message de succès à l'utilisateur
+//         alert('Forfait ajouté avec succès !');
+//       } else {
+//         console.log("Erreur lors de l'ajout du forfait");
+//         // Effectuez ici d'autres actions ou affichez un message d'erreur à l'utilisateur
+//         alert('Erreur lors de l\'ajout du forfait');
+//       }
 
-      // Réinitialisez les valeurs du formulaire après l'ajout du forfait
-      setNomForfait('');
-      setOptionForfait('');
-      setSoldeData('');
-      setSoldeAppels('');
-      setMontant('');
-      setStatutForfait('active');
-    } catch (error) {
-      // Gérez les erreurs de la requête
-      console.error("Erreur lors de l'appel de l'API d'ajout du forfait :", error);
-      // Effectuez ici d'autres actions ou affichez un message d'erreur à l'utilisateur
-      alert("Erreur lors de l'appel de l'API d'ajout du forfait");
-    }
-  }
-}
+//       // Réinitialisez les valeurs du formulaire après l'ajout du forfait
+//       setNomForfait('');
+//       setOptionForfait('');
+//       setSoldeData('');
+//       setSoldeAppels('');
+//       setMontant('');
+//       setStatutForfait('active');
+//     } catch (error) {
+//       // Gérez les erreurs de la requête
+//       console.error("Erreur lors de l'appel de l'API d'ajout du forfait :", error);
+//       // Effectuez ici d'autres actions ou affichez un message d'erreur à l'utilisateur
+//       alert("Erreur lors de l'appel de l'API d'ajout du forfait");
+//     }
+//   }
+// }
 
   // Autres états et fonctions
 
@@ -138,20 +146,63 @@ export default function HorizontalNonLinearStepper (){
          <form>
           <Box sx={{ display: 'flex', gap: '20px', margin: '10px' }}>
           <TextField
-              label="Nom"
+              label="Nom du forfait"
               variant="outlined"
               fullWidth
               value={formData.nomForfait}
               onChange={(e) => setFormData({ ...formData, nomForfait: e.target.value })}
             />
             <TextField
-              label="Prénom"
+              label="Option forfait"
               variant="outlined"
               fullWidth
               value={formData.optionForfait}
               onChange={(e) => setFormData({ ...formData, optionForfait: e.target.value })}
             />
           </Box>
+          <Box sx={{ display: 'flex', gap: '20px', margin: '10px' }}>
+          <TextField
+              label="Solde Data"
+              variant="outlined"
+              fullWidth
+              value={formData.soldeData}
+              onChange={(e) => setFormData({ ...formData, soldeData: e.target.value })}
+            />
+            <TextField
+              label="Solde appel"
+              variant="outlined"
+              fullWidth
+              value={formData.soldeAppels}
+              onChange={(e) => setFormData({ ...formData, soldeAppels: e.target.value })}
+            />
+          </Box>
+          <Box sx={{ display: 'flex', gap: '20px', margin: '10px' }}>
+          <TextField
+               select
+              label="Statut forfait"
+              variant="outlined"
+              fullWidth
+              value={formData.rfForfait}
+              onChange={(e) => setFormData({ ...formData, rfForfait: e.target.value })}
+            >
+              {rfForfait.map((rfForait) => (
+                      <MenuItem key={rfForait.id} value={rfForait.id}>
+                        {rfForait.statutForfait}
+                      </MenuItem>
+                  ))}
+              </TextField>
+            <TextField
+              label="Montant"
+              variant="outlined"
+              fullWidth
+              value={formData.montant}
+              onChange={(e) => setFormData({ ...formData, montant: e.target.value })}
+            />
+          </Box>
+          <Box sx={{display: 'flex', justifyContent: 'flex-end', py: 1}}>
+            <Button onClick={handleCreerForfait} variant='contained' disableElevation>Creer</Button>
+            
+            </Box>
          </form>
           
         );
@@ -193,7 +244,18 @@ export default function HorizontalNonLinearStepper (){
     setActiveStep(0);
     setCompleted({});
   }
-
+  const { addForfait, loading} = useContext(ApiContext);
+  const handleCreerForfait = async () => {
+    console.log("handleCreerForfait: " + formData.rfForfait);
+    try {
+      const data = await addForfait(
+        {...formData}
+      );
+    } catch (error) {
+      console.error(error);
+    }
+    alert("beneficiaire ajouter")
+  }
 
   // Autres états et fonctions
 
@@ -257,3 +319,4 @@ export default function HorizontalNonLinearStepper (){
     </Box>
   );
               }
+              export default HorizontalNonLinearStepper;

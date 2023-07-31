@@ -157,6 +157,7 @@ const BeneficiaireTable = () => {
   const [lignes, setLignes] = useState([]);
 
   useEffect(() => {
+
     // Récupérer les données des lignes depuis l'API
     axios.get('http://localhost:8089/lignes/ligne')
       .then((response) => setLignes(response.data))
@@ -194,8 +195,9 @@ const BeneficiaireTable = () => {
                         <TableCell key={b.centreCout.centreCout}>{b.centreCout.centreCout}</TableCell>
                         <TableCell key={b.rfBeneficiaire.statutBeneficiaire}>{b.rfBeneficiaire.statutBeneficiaire}</TableCell>
                         <TableCell key={b.lignes && b.lignes.numLigne}>
-                    {b.lignes && b.lignes.numLigne}
-                  </TableCell>
+                          {b.lignes && b.lignes.numLigne}
+                        </TableCell>
+
                         <TableCell key={b.actions}>
                           <Tooltip title="Modifier">
                             <IconButton

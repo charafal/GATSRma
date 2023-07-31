@@ -63,7 +63,17 @@ interface IApiContext {
     lignes: number;
     
   }) => Promise<IBeneficiare[]>;
-  
+  addForfait: ({
+    nomForfait,
+    soldeData,
+    soldeAppels,
+    montant,
+  }: {
+    nomForfait: string;
+    soldeData: string;
+    soldeAppels: string;
+    montant: string;
+  }) => Promise<IForfait[]>;
   
   loading: boolean;
   beneficaires: IBeneficiare[] | null;
@@ -72,8 +82,10 @@ interface IApiContext {
 }
 
 const ApiContext = createContext<IApiContext>({
+  
   getBeneficiaires: async () => [],
   addBeneficiaire: async () => [],  
+  addForfait: async () => [],
   getForfaits: async () => [],
   getTerminals: async () => [],
   forfaits: [],

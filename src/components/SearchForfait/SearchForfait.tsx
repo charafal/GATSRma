@@ -38,7 +38,7 @@ const ForfaitSearch = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8089/forfaits")
+      .get("http://localhost:8089/forfaits/rechercheForfait")
       .then(function (response) {
         setForfaits(response.data);
       })
@@ -70,14 +70,17 @@ const ForfaitSearch = () => {
 
   const handleRecherche = async () => {
     try {
-      await getForfaits(
-      {nomForfait,soldeData,soldeAppels,montant}
-      );
+      await getForfaits({
+        nomForfait: nomForfait,
+        soldeData: soldeData,
+        soldeAppels: soldeAppels,
+        montant: montant,
+      });
     } catch (error) {
       console.error(error);
     }
-  
   };
+  
 
   const handleAjouter = () => {
     // Ajoutez ici la logique pour le bouton "Ajouter"
