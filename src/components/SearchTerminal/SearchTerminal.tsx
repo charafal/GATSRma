@@ -1,6 +1,5 @@
-
-import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
+import React, { useEffect, useState } from 'react';
+import Button from '@mui/material/Button';
 import {
   Box,
   CircularProgress,
@@ -12,32 +11,32 @@ import {
   TextField,
   Typography,
   styled,
-} from "@mui/material";
-import { SelectChangeEvent } from "@mui/material/Select";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import ApiContext from "../../context/ApiContext";
-import RenderText from "../../utils/RenderText";
+} from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import ApiContext from '../../context/ApiContext';
+import RenderText from '../../utils/RenderText';
 
 const StyledTypography = styled(Typography)({
-  color: "#1d2442",
-  fontSize: "25px",
+  color: '#1d2442',
+  fontSize: '25px',
   fontWeight: 500,
 });
 
 const SearchMultiCriteriaTerminalForm = () => {
   let navigate = useNavigate();
-  const { getTerminals, loading} = React.useContext(ApiContext);
-  const [imei, setImei] = useState("");
-const [etatTerminal, setEtatTerminal] = useState("");
-//const [montant, setMontant] = useState("");
+  const { getTerminals, loading } = React.useContext(ApiContext);
+  const [imei, setImei] = useState('');
+  const [etatTerminal, setEtatTerminal] = useState('');
+  //const [montant, setMontant] = useState("");
 
- // const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [terminals, setTerminals] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8089/etatTerminals")
+      .get('http://localhost:8089/etatTerminals')
       .then(function (response) {
         setTerminals(response.data);
       })
@@ -49,11 +48,8 @@ const [etatTerminal, setEtatTerminal] = useState("");
   const handleImeiChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setImei(event.target.value);
   };
-  
-  
 
-
-  const handleEtatTerminalChange = ( event: SelectChangeEvent)  => {
+  const handleEtatTerminalChange = (event: SelectChangeEvent) => {
     setEtatTerminal(event.target.value);
   };
 
@@ -62,9 +58,9 @@ const [etatTerminal, setEtatTerminal] = useState("");
       await getTerminals({
         imei: imei,
         etatTerminal: etatTerminal,
-        dateReception: "",  
-        dateCession: "",   
-        action: null,      
+        dateReception: '',
+        dateCession: '',
+        action: null,
       });
     } catch (error) {
       console.error(error);
@@ -72,16 +68,16 @@ const [etatTerminal, setEtatTerminal] = useState("");
   };
 
   const handleAjouter = () => {
-    navigate("/TerminalAdd");
+    navigate('/TerminalAdd');
   };
 
   return (
-    <Box sx={{ width: "95%", marginX: "2%" }}>
+    <Box sx={{ width: '95%', marginX: '2%' }}>
       <StyledTypography
         sx={{
-          flex: "1 1 100%",
-          fontWeight: "bold",
-          marginBottom: "1em",
+          flex: '1 1 100%',
+          fontWeight: 'bold',
+          marginBottom: '1em',
           pl: { sm: 2 },
           pr: { xs: 1, sm: 1 },
         }}
@@ -92,16 +88,16 @@ const [etatTerminal, setEtatTerminal] = useState("");
       </StyledTypography>
       <Paper
         sx={{
-          width: "100%",
+          width: '100%',
           mb: 2,
-          padding: "1%",
-          border: "1px solid rgba(0, 0, 0, .1)",
+          padding: '1%',
+          border: '1px solid rgba(0, 0, 0, .1)',
         }}
       >
         <Box
           sx={{
-            "& > :not(style)": { m: 1, width: "25ch" },
-            textAlign: "center",
+            '& > :not(style)': { m: 1, width: '25ch' },
+            textAlign: 'center',
           }}
         >
           <TextField
@@ -126,7 +122,7 @@ const [etatTerminal, setEtatTerminal] = useState("");
               <MenuItem key={Math.random()} value="">
                 None
               </MenuItem>
-              {terminals.map((item : any, index: number) => (
+              {terminals.map((item: any, index: number) => (
                 <MenuItem key={index} value={item.id}>
                   {item.etatTerminal}
                 </MenuItem>
@@ -137,26 +133,26 @@ const [etatTerminal, setEtatTerminal] = useState("");
 
         <Box
           sx={{
-            marginInline: "2rem",
-            marginTop: "1.5rem",
-            textAlign: "center",
+            marginInline: '2rem',
+            marginTop: '1.5rem',
+            textAlign: 'center',
           }}
         >
           <Button
             variant="contained"
-            sx={{ backgroundColor: "#1D2A5C", marginRight: "0.5rem" }}
+            sx={{ backgroundColor: '#1D2A5C', marginRight: '0.5rem' }}
             onClick={handleRecherche}
             disabled={loading}
           >
             {loading ? (
-              <CircularProgress sx={{ color: "white" }} size="1.5rem" />
+              <CircularProgress sx={{ color: 'white' }} size="1.5rem" />
             ) : (
               <>Rechercher</>
             )}
           </Button>
           <Button
             variant="contained"
-            sx={{ backgroundColor: "#1D2A5C" }}
+            sx={{ backgroundColor: '#1D2A5C' }}
             onClick={handleAjouter}
           >
             Ajouter

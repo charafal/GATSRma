@@ -1,14 +1,10 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 //import { isObject } from "lodash";
 //import { FormattedMessage } from "react-intl";
-import {
-  isDefined,
-  isNotDefined,
-  isNotDefinedOrEmpty,
-} from "../helper";
-import { has, isNumber, isObject, isString } from "lodash";
-import { FormattedMessage } from "react-intl";
-import { Box } from "@mui/material";
+import { isDefined, isNotDefined, isNotDefinedOrEmpty } from '../helper';
+import { has, isNumber, isObject, isString } from 'lodash';
+import { FormattedMessage } from 'react-intl';
+import { Box } from '@mui/material';
 
 interface RenderTextProps {
   value: any; // string | number | object;
@@ -24,11 +20,11 @@ const RenderText = ({ value }: RenderTextProps) => {
 
   if (isString(value)) return <Box>{value}</Box>;
 
-  if (isObject(value) && has(value, "defaultMessage")) {
+  if (isObject(value) && has(value, 'defaultMessage')) {
     return <FormattedMessage {...value} />;
   }
 
-  if (isObject(value) && has(value, "label")) {
+  if (isObject(value) && has(value, 'label')) {
     // @ts-ignore
     return value.label;
   }

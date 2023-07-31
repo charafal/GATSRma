@@ -1,8 +1,8 @@
-import React, { FC, ReactNode } from "react";
-import MuiCardHeader from "@mui/material/CardHeader";
-import { isArray } from "lodash";
-import { isDefined, isDefinedAndNotEmpty } from "../../utils/helper";
-import { Stack } from "@mui/material";
+import React, { FC, ReactNode } from 'react';
+import MuiCardHeader from '@mui/material/CardHeader';
+import { isArray } from 'lodash';
+import { isDefined, isDefinedAndNotEmpty } from '../../utils/helper';
+import { Stack } from '@mui/material';
 
 interface CardHeaderProps {
   collapsable?: boolean;
@@ -29,7 +29,7 @@ const CardHeader: FC<CardHeaderProps> = ({
     }
   }
 
-  if (isDefined(expandButton) && typeof expandButton !== "boolean") {
+  if (isDefined(expandButton) && typeof expandButton !== 'boolean') {
     actionWidgets.push(expandButton);
   }
   //console.log("actionWidgets", actionWidgets);
@@ -37,14 +37,14 @@ const CardHeader: FC<CardHeaderProps> = ({
   return (
     <MuiCardHeader
       titleTypographyProps={{
-        fontSize: "15px",
+        fontSize: '15px',
         fontWeight: 500,
-        fontStretch: "normal",
-        letterSpacing: "0.15px",
+        fontStretch: 'normal',
+        letterSpacing: '0.15px',
         lineHeight: 1.6,
-        variant: "subtitle1",
+        variant: 'subtitle1',
         //color: "#3a4b95",
-        color: "text.modalCardTitle",
+        color: 'text.modalCardTitle',
         //flexGrow: 0,
       }}
       {...(isDefinedAndNotEmpty(actionWidgets)

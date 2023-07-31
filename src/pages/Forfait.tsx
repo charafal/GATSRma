@@ -1,15 +1,12 @@
-import SearchForfaitForm from "../components/SearchForfait/SearchForfait"
-import React from "react";
-import TableForfait from "../components/Table/TableForfait"
-import SearchForfait from "../components/SearchForfait/SearchForfait";
-
+import React from 'react';
+import TableForfait from '../components/Table/TableForfait';
+import SearchForfait from '../components/SearchForfait/SearchForfait';
 
 const Forfait = () => {
   return (
     <>
-    
       <SearchForfait />
-      <TableForfait  />
+      <TableForfait />
     </>
   );
 };

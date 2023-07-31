@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import Button from "@mui/material/Button";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import Button from '@mui/material/Button';
 import {
   Box,
   TextField,
@@ -12,15 +12,15 @@ import {
   FormControl,
   Stack,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 
 const ModifierBeneficiaire = () => {
   const { id } = useParams();
   const [beneficiaire, setBeneficiaire] = useState(null);
-  const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
-  const [matricule, setMatricule] = useState("");
-  const [centrecout, setCentrecout] = useState("");
+  const [nom, setNom] = useState('');
+  const [prenom, setPrenom] = useState('');
+  const [matricule, setMatricule] = useState('');
+  const [centrecout, setCentrecout] = useState('');
   const [centreCoutOptions, setCentreCoutOptions] = useState([]);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const ModifierBeneficiaire = () => {
       try {
         const [beneficiaireResponse, centreCoutResponse] = await Promise.all([
           axios.get(`http://localhost:8089/beneficiaire/${id}`),
-          axios.get("http://localhost:8089/centreCouts"),
+          axios.get('http://localhost:8089/centreCouts'),
         ]);
         setBeneficiaire(beneficiaireResponse.data);
         setNom(beneficiaireResponse.data.nom);
@@ -40,8 +40,8 @@ const ModifierBeneficiaire = () => {
         setCentreCoutOptions(centreCoutResponse.data);
       } catch (error) {
         console.error(
-          "Erreur lors de la récupération du bénéficiaire :",
-          error
+          'Erreur lors de la récupération du bénéficiaire :',
+          error,
         );
       }
     };
@@ -67,11 +67,11 @@ const ModifierBeneficiaire = () => {
       const updatedBeneficiaire = { ...beneficiaire, nom, prenom };
       await axios.put(
         `http://localhost:8089/beneficiaire/updateBeneficiaire2/{id}`,
-        updatedBeneficiaire
+        updatedBeneficiaire,
       );
       // Gérer la réussite de la modification, par exemple, rediriger l'utilisateur vers une autre page
     } catch (error) {
-      console.error("Erreur lors de la modification du bénéficiaire :", error);
+      console.error('Erreur lors de la modification du bénéficiaire :', error);
     }
   };
 
@@ -82,9 +82,9 @@ const ModifierBeneficiaire = () => {
   return (
     <Box
       sx={{
-        width: "60ch",
-        margin: "auto",
-        transform: "translateY(50%)",
+        width: '60ch',
+        margin: 'auto',
+        transform: 'translateY(50%)',
       }}
     >
       {true && (
@@ -92,14 +92,14 @@ const ModifierBeneficiaire = () => {
           <Stack gap={2}>
             <Typography
               variant="h3"
-              textAlign={"center"}
-              fontWeight={"600"}
+              textAlign={'center'}
+              fontWeight={'600'}
               fontSize={32}
               mb={1}
             >
               Modifier le bénéficiaire
             </Typography>
-            <Stack direction={"row"} gap={2}>
+            <Stack direction={'row'} gap={2}>
               <TextField
                 label="Nom"
                 variant="outlined"
@@ -116,7 +116,7 @@ const ModifierBeneficiaire = () => {
               />
               {/* Ajoutez d'autres champs de saisie pour les autres informations du bénéficiaire */}
             </Stack>
-            <Stack direction={"row"} gap={2}>
+            <Stack direction={'row'} gap={2}>
               <TextField
                 label="Matricule"
                 variant="outlined"
@@ -142,7 +142,7 @@ const ModifierBeneficiaire = () => {
               </FormControl>
               {/* Ajoutez d'autres champs de saisie pour les autres informations du bénéficiaire */}
             </Stack>
-            <Stack direction={"row"} justifyContent={"space-between"}>
+            <Stack direction={'row'} justifyContent={'space-between'}>
               <Button variant="outlined" component={Link} to="/beneficiaires">
                 Annuler
               </Button>

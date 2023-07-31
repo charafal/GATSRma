@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@types/date-fns": "^2.6.0",
-    "@types/lodash": "^4.14.194"
+    "@types/lodash": "^4.14.194",
+    "prettier": "3.0.0"
   }
 }

@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+} from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { Cancel as CancelIcon } from '@mui/icons-material';
@@ -17,7 +25,9 @@ const ConsulterBeneficiaire = () => {
 
   const fetchBeneficiaire = async () => {
     try {
-      const response = await axios.get(`http://localhost:8089/beneficiaire/${id}`);
+      const response = await axios.get(
+        `http://localhost:8089/beneficiaire/${id}`,
+      );
       setBeneficiaire(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération du bénéficiaire :', error);
@@ -70,7 +80,9 @@ const ConsulterBeneficiaire = () => {
                 <TableCell>
                   <strong>Statut bénéficiaire:</strong>
                 </TableCell>
-                <TableCell>{beneficiaire.rfBeneficiaire.statutBeneficiaire}</TableCell>
+                <TableCell>
+                  {beneficiaire.rfBeneficiaire.statutBeneficiaire}
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>
@@ -83,7 +95,13 @@ const ConsulterBeneficiaire = () => {
           </Table>
         </TableContainer>
       </Paper>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Button
           variant="contained"
           startIcon={<CancelIcon />}

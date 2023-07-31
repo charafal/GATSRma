@@ -5,7 +5,7 @@ import {
   isUndefined,
   toNumber as lodashToNumber,
   trim,
-} from "lodash";
+} from 'lodash';
 
 export const isDefined = (value: any) => {
   return !isUndefined(value) && !isNull(value);

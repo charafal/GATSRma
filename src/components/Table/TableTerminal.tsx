@@ -1,25 +1,25 @@
 import React from 'react';
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import { styled } from "@mui/material";
-import RenderText from "../../utils/RenderText";
-import ApiContext from "../../context/ApiContext";
-import EditIcon from "@mui/icons-material/Edit";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { Link } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { styled } from '@mui/material';
+import RenderText from '../../utils/RenderText';
+import ApiContext from '../../context/ApiContext';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link } from 'react-router-dom';
 import { ITerminal } from '../../context/types';
 export {}; // Add this line to make the file a module
 
@@ -28,8 +28,8 @@ export {}; // Add this line to make the file a module
 // ...
 
 const StyledTypography = styled(Typography)({
-  color: "#1d2442",
-  fontSize: "25px",
+  color: '#1d2442',
+  fontSize: '25px',
   fontWeight: 500,
 });
 
@@ -42,34 +42,34 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "imei",
+    id: 'imei',
     numeric: false,
     disablePadding: false,
-    label: "IMEI",
+    label: 'IMEI',
   },
   {
-    id: "etatTerminal",
+    id: 'etatTerminal',
     numeric: false,
     disablePadding: false,
-    label: "État du terminal",
+    label: 'État du terminal',
   },
   {
-    id: "dateReception",
+    id: 'dateReception',
     numeric: false,
     disablePadding: false,
-    label: "Date de réception",
+    label: 'Date de réception',
   },
   {
-    id: "dateCession",
+    id: 'dateCession',
     numeric: false,
     disablePadding: false,
-    label: "Date de cession",
+    label: 'Date de cession',
   },
   {
-    id: "action",
+    id: 'action',
     numeric: false,
     disablePadding: false,
-    label: "Actions",
+    label: 'Actions',
   },
 ];
 
@@ -80,8 +80,8 @@ function EnhancedTableHead() {
         {headCells.map((headCell, index) => (
           <TableCell
             key={index}
-            align={"left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
+            align={'left'}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
           >
             <b>{headCell.label}</b>
           </TableCell>
@@ -95,7 +95,7 @@ function EnhancedTableToolbar() {
   return (
     <Toolbar>
       <StyledTypography
-        sx={{ flex: "1 1 100%", fontWeight: "bold" }}
+        sx={{ flex: '1 1 100%', fontWeight: 'bold' }}
         variant="h6"
         id="tableTitle"
       >
@@ -120,14 +120,21 @@ export default function EnhancedTable() {
 
   return (
     <>
-      <Box sx={{ width: "95%", marginX: "2%" }} key={Math.random()}>
+      <Box sx={{ width: '95%', marginX: '2%' }} key={Math.random()}>
         <EnhancedTableToolbar />
-        <Paper sx={{ width: "100%", mb: 2, border: "1px solid rgba(0, 0, 0, .1)", paddingLeft: "10px" }}>
+        <Paper
+          sx={{
+            width: '100%',
+            mb: 2,
+            border: '1px solid rgba(0, 0, 0, .1)',
+            paddingLeft: '10px',
+          }}
+        >
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
               aria-labelledby="tableTitle"
-              size={dense ? "small" : "medium"}
+              size={dense ? 'small' : 'medium'}
             >
               <EnhancedTableHead />
               <TableBody>
@@ -166,13 +173,17 @@ export default function EnhancedTable() {
           </TableContainer>
           <Box
             sx={{
-              padding: "1%",
-              margin: "auto",
-              width: "fit-content",
-              alignItems: "center",
+              padding: '1%',
+              margin: 'auto',
+              width: 'fit-content',
+              alignItems: 'center',
             }}
           >
-            {terminals && terminals?.length === 0 && <Typography variant="body1" color='#898989'>Aucun terminal trouvé.</Typography>}
+            {terminals && terminals?.length === 0 && (
+              <Typography variant="body1" color="#898989">
+                Aucun terminal trouvé.
+              </Typography>
+            )}
           </Box>
         </Paper>
         <FormControlLabel

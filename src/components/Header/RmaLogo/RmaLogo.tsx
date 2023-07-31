@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
-import rmaLogo from '../../../assets/icons/rma-icon.svg'
+import { Typography } from '@mui/material';
+import rmaLogo from '../../../assets/icons/rma-icon.svg';
 
 export const RmaLogo = () => {
   return (
