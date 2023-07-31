@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export const Card = (props: { children: any }) => {
-  return (
-    <Card>{props.children}</Card>
-  )
-}
+  return <Card>{props.children}</Card>;
+};

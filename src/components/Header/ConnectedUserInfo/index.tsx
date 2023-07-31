@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   alpha,
   Avatar,
@@ -8,47 +8,47 @@ import {
   MenuItem,
   MenuProps,
   styled,
-} from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import loginUserImg from "../../../assets/images/login-user.png";
+} from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import loginUserImg from '../../../assets/images/login-user.png';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
     anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
+      vertical: 'bottom',
+      horizontal: 'right',
     }}
     transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
+      vertical: 'top',
+      horizontal: 'right',
     }}
     {...props}
   />
 ))(({ theme }) => ({
-  "& .MuiPaper-root": {
+  '& .MuiPaper-root': {
     borderRadius: 6,
     marginTop: theme.spacing(1),
     minWidth: 180,
     color:
-      theme.palette.mode === "light"
-        ? "rgb(55, 65, 81)"
+      theme.palette.mode === 'light'
+        ? 'rgb(55, 65, 81)'
         : theme.palette.grey[300],
     boxShadow:
-      "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-    "& .MuiMenu-list": {
-      padding: "4px 0",
+      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+    '& .MuiMenu-list': {
+      padding: '4px 0',
     },
-    "& .MuiMenuItem-root": {
-      "& .MuiSvgIcon-root": {
+    '& .MuiMenuItem-root': {
+      '& .MuiSvgIcon-root': {
         fontSize: 18,
         color: theme.palette.text.secondary,
         marginRight: theme.spacing(1.5),
       },
-      "&:active": {
+      '&:active': {
         backgroundColor: alpha(
           theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
+          theme.palette.action.selectedOpacity,
         ),
       },
     },
@@ -71,9 +71,9 @@ const ConnectedUserInfo = () => {
     <>
       <Button
         id="demo-customized-button"
-        aria-controls={open ? "demo-customized-menu" : undefined}
+        aria-controls={open ? 'demo-customized-menu' : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-expanded={open ? 'true' : undefined}
         variant="text"
         disableElevation
         //onClick={handleClick}
@@ -83,23 +83,23 @@ const ConnectedUserInfo = () => {
           <Avatar
             //alt="Connected User"}
             src={loginUserImg}
-            sx={{ width: "40px", height: "39px" }}
+            sx={{ width: '40px', height: '39px' }}
           />
         }
-        sx={{ textTransform: "none", textAlign: "left", p: "3px 15px" }}
+        sx={{ textTransform: 'none', textAlign: 'left', p: '3px 15px' }}
       >
         <ListItemText
           primary="Ahmed SOULIMANI"
           secondary="Gestionnaire"
           primaryTypographyProps={{
             sx: {
-              fontSize: "12px",
+              fontSize: '12px',
               fontWeight: 600,
             },
           }}
           secondaryTypographyProps={{
             sx: {
-              fontSize: "10px",
+              fontSize: '10px',
             },
           }}
         />
@@ -107,7 +107,7 @@ const ConnectedUserInfo = () => {
       <StyledMenu
         id="demo-customized-menu"
         MenuListProps={{
-          "aria-labelledby": "demo-customized-button",
+          'aria-labelledby': 'demo-customized-button',
         }}
         anchorEl={anchorElUser}
         open={open}

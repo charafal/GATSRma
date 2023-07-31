@@ -1,5 +1,5 @@
-import React, { ComponentType, FC, ReactNode } from "react";
-import { styled } from "@mui/material/styles";
+import React, { ComponentType, FC, ReactNode } from 'react';
+import { styled } from '@mui/material/styles';
 import {
   alpha,
   Box,
@@ -12,21 +12,21 @@ import {
   IconButton,
   Stack,
   Tooltip,
-} from "@mui/material";
-import MuiCardHeader from "@mui/material/CardHeader";
-import MuiCardContent from "@mui/material/CardContent";
+} from '@mui/material';
+import MuiCardHeader from '@mui/material/CardHeader';
+import MuiCardContent from '@mui/material/CardContent';
 import {
   AddOutlined as AddOutlinedIcon,
   RemoveOutlined as RemoveOutlinedIcon,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 
-import RenderText from "../../utils/RenderText";
-import { isDefined } from "../../utils/helper";
-import CardHeader from "./CardHeader";
+import RenderText from '../../utils/RenderText';
+import { isDefined } from '../../utils/helper';
+import CardHeader from './CardHeader';
 
 const CardContent = styled(MuiCardContent)(({ theme }) => ({
-  paddingLeft: "20px",
-  paddingRight: "20px",
+  paddingLeft: '20px',
+  paddingRight: '20px',
   paddingTop: 0,
 }));
 
@@ -62,19 +62,16 @@ const CardWrapper: FC<CardWrapperProps> = ({
   stackProps,
   children,
 }) => {
-
-
-
   return (
     <Card
       {...cardProps}
       sx={{
         //backgroundColor: alpha("#f3f7ff", 0.5), // theme.palette.background.modalCardBackground,
         //backgroundColor: "#f3f7ff",
-        backgroundColor: "#ffffff",
-        borderRadius: "16px",
-        boxShadow: "none",
-        border: hasBorder ? "1px solid rgba(168, 188, 197, 0.4)" : undefined,
+        backgroundColor: '#ffffff',
+        borderRadius: '16px',
+        boxShadow: 'none',
+        border: hasBorder ? '1px solid rgba(168, 188, 197, 0.4)' : undefined,
         //p: 2,
         p: 2,
         ...cardProps?.sx,
@@ -82,7 +79,7 @@ const CardWrapper: FC<CardWrapperProps> = ({
     >
       {isDefined(title) ? (
         <CardHeader
-          title={<RenderText value={title || ""} />}
+          title={<RenderText value={title || ''} />}
           actions={actions}
           avatar={icon && <Icon component={icon} />}
           sx={{
@@ -97,7 +94,7 @@ const CardWrapper: FC<CardWrapperProps> = ({
           sx={{
             p: 0,
             //pl: 2, pr: 2
-            "&:last-child": {
+            '&:last-child': {
               paddingBottom: 0,
             },
           }}
@@ -124,7 +121,7 @@ const CardWrapper: FC<CardWrapperProps> = ({
             //sx={{ bgcolor: alpha("#f3f7ff", 1) }}
             >
               <Stack
-                sx={{ width: "100%" }}
+                sx={{ width: '100%' }}
                 direction="row"
                 alignItems="center"
                 justifyContent="flex-end"

@@ -15,44 +15,40 @@ interface IApiContext {
  
  getForfaits: ({
   nomForfait,
-  //option_forfait,
+  // option_forfait,
   soldeData,
   soldeAppels,
    montant,
  }: {
   nomForfait: string;
-  //option_forfait: string;
+  // option_forfait: string;
   soldeData: string;
   soldeAppels: string;
     montant: string;
-  
- }) =>Promise<IForfait[]>;
+  }) => Promise<IForfait[]>;
 
-
- getTerminals: ({
-  imei,
-  etatTerminal,
-  dateReception,
-  dateCession,
-  action,
-}: {
-  
-  imei : string;
-  etatTerminal: string;
-  dateReception : string;
-  dateCession: string;
-  action: any;
-}) => Promise<ITerminal[]>;
+  getTerminals: ({
+    imei,
+    etatTerminal,
+    dateReception,
+    dateCession,
+    action,
+  }: {
+    imei: string;
+    etatTerminal: string;
+    dateReception: string;
+    dateCession: string;
+    action: any;
+  }) => Promise<ITerminal[]>;
 
   addBeneficiaire: ({
     nom,
-    prenom, 
+    prenom,
     matricule,
     centreCout,
     rfDirection,
     rfBeneficiaire,
     lignes,
-    
   }: {
     nom: string;
     prenom: string;
@@ -61,7 +57,6 @@ interface IApiContext {
     rfDirection: number;
     rfBeneficiaire: number;
     lignes: number;
-    
   }) => Promise<IBeneficiare[]>;
   addForfait: ({
     nomForfait,
@@ -76,17 +71,16 @@ interface IApiContext {
     soldeAppels: string;
     montant: string;
   }) => Promise<IForfait[]>;
-  
+
   loading: boolean;
   beneficaires: IBeneficiare[] | null;
-  forfaits : IForfait[] | null;
-  terminals : ITerminal[] | null;
+  forfaits: IForfait[] | null;
+  terminals: ITerminal[] | null;
 }
 
 const ApiContext = createContext<IApiContext>({
-  
   getBeneficiaires: async () => [],
-  addBeneficiaire: async () => [],  
+  addBeneficiaire: async () => [],
   addForfait: async () => [],
   getForfaits: async () => [],
   getTerminals: async () => [],
@@ -94,7 +88,6 @@ const ApiContext = createContext<IApiContext>({
   beneficaires: [],
   terminals: [],
   loading: false,
-
 });
 
 export default ApiContext;

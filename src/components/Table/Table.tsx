@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import { styled } from "@mui/material";
-import RenderText from "../../utils/RenderText";
-import ApiContext from "../../context/ApiContext";
-import { IBeneficiare } from "../../context/types";
-import EditIcon from "@mui/icons-material/Edit";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { styled } from '@mui/material';
+import RenderText from '../../utils/RenderText';
+import ApiContext from '../../context/ApiContext';
+import { IBeneficiare } from '../../context/types';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 const StyledTypography = styled(Typography)({
-  color: "#1d2442",
-  fontSize: "25px",
+  color: '#1d2442',
+  fontSize: '25px',
   fontWeight: 500,
 });
 
@@ -39,22 +39,22 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "nom",
+    id: 'nom',
     numeric: true,
     disablePadding: true,
-    label: "Nom",
+    label: 'Nom',
   },
   {
-    id: "prenom",
+    id: 'prenom',
     numeric: false,
     disablePadding: false,
-    label: "Prénom",
+    label: 'Prénom',
   },
   {
-    id: "matricule",
+    id: 'matricule',
     numeric: false,
     disablePadding: false,
-    label: "Matricule",
+    label: 'Matricule',
   },
   // {
   //   id: "lignes",
@@ -63,47 +63,46 @@ const headCells: readonly HeadCell[] = [
   //   label: "NumLigne",
   // },
   {
-    id: "direction",
+    id: 'direction',
     numeric: false,
     disablePadding: false,
-    label: "Direction",
+    label: 'Direction',
   },
   {
-    id: "centreCout",
+    id: 'centreCout',
     numeric: false,
     disablePadding: false,
-    label: "Centre de Cout",
+    label: 'Centre de Cout',
   },
   {
-    id: "statut",
+    id: 'statut',
     numeric: false,
     disablePadding: false,
-    label: "Statut bénéficaire",
+    label: 'Statut bénéficaire',
   },
   {
-    id: "lignes",
+    id: 'lignes',
     numeric: true,
     disablePadding: false,
-    label: "NumLigne",
+    label: 'NumLigne',
   },
   {
-    id: "actions",
+    id: 'actions',
     numeric: false,
     disablePadding: false,
-    label: "Actions",
+    label: 'Actions',
   },
-
 ];
 
 function EnhancedTableHead() {
   return (
-    <TableHead sx={{ paddingLeft: "20px" }}>
+    <TableHead sx={{ paddingLeft: '20px' }}>
       <TableRow>
         {headCells.map((headCell, index) => (
           <TableCell
             key={index}
-            align={"left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
+            align={'left'}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
           >
             <b>{headCell.label}</b>
           </TableCell>
@@ -117,7 +116,7 @@ function EnhancedTableToolbar() {
   return (
     <Toolbar>
       <StyledTypography
-        sx={{ flex: "1 1 100%", fontWeight: "bold" }}
+        sx={{ flex: '1 1 100%', fontWeight: 'bold' }}
         variant="h6"
         id="tableTitle"
       >
@@ -145,45 +144,52 @@ const BeneficiaireTable = () => {
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement>,
-    page: number
+    page: number,
   ) => {
     setCurrentPage(page);
   };
 
-  const pageCount = beneficaires ? Math.ceil(beneficaires.length / beneficiairesPerPage) : 0;
-
+  const pageCount = beneficaires
+    ? Math.ceil(beneficaires.length / beneficiairesPerPage)
+    : 0;
 
   const pageNumbers = Array.from({ length: pageCount }, (_, i) => i + 1);
   const [lignes, setLignes] = useState([]);
 
   useEffect(() => {
-
     // Récupérer les données des lignes depuis l'API
-    axios.get('http://localhost:8089/lignes/ligne')
+    axios
+      .get('http://localhost:8089/lignes/ligne')
       .then((response) => setLignes(response.data))
-      .catch((error) => console.error('Erreur lors de la récupération des lignes :', error));
+      .catch((error) =>
+        console.error('Erreur lors de la récupération des lignes :', error),
+      );
   }, []);
 
   return (
-    <Box sx={{ width: "95%", marginX: "2%" }}>
+    <Box sx={{ width: '95%', marginX: '2%' }}>
       <EnhancedTableToolbar />
       <Paper
         sx={{
-          width: "100%",
+          width: '100%',
           mb: 2,
-          border: "1px solid rgba(0, 0, 0, .1)",
-          paddingLeft: "10px",
+          border: '1px solid rgba(0, 0, 0, .1)',
+          paddingLeft: '10px',
         }}
       >
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? "small" : "medium"}>
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size={dense ? 'small' : 'medium'}
+          >
             <EnhancedTableHead />
             <TableBody>
               {beneficaires &&
                 beneficaires
                   .slice(
                     (currentPage - 1) * beneficiairesPerPage,
-                    currentPage * beneficiairesPerPage
+                    currentPage * beneficiairesPerPage,
                   )
                   .map((b: any, index) => {
                     return (
@@ -191,9 +197,15 @@ const BeneficiaireTable = () => {
                         <TableCell key={b.nom}>{b.nom}</TableCell>
                         <TableCell key={b.prenom}>{b.prenom}</TableCell>
                         <TableCell key={b.matricule}>{b.matricule}</TableCell>
-                        <TableCell key={b.rfDirection.nomDirection}>{b.rfDirection.nomDirection}</TableCell>
-                        <TableCell key={b.centreCout.centreCout}>{b.centreCout.centreCout}</TableCell>
-                        <TableCell key={b.rfBeneficiaire.statutBeneficiaire}>{b.rfBeneficiaire.statutBeneficiaire}</TableCell>
+                        <TableCell key={b.rfDirection.nomDirection}>
+                          {b.rfDirection.nomDirection}
+                        </TableCell>
+                        <TableCell key={b.centreCout.centreCout}>
+                          {b.centreCout.centreCout}
+                        </TableCell>
+                        <TableCell key={b.rfBeneficiaire.statutBeneficiaire}>
+                          {b.rfBeneficiaire.statutBeneficiaire}
+                        </TableCell>
                         <TableCell key={b.lignes && b.lignes.numLigne}>
                           {b.lignes && b.lignes.numLigne}
                         </TableCell>
@@ -228,10 +240,10 @@ const BeneficiaireTable = () => {
         </TableContainer>
         <Box
           sx={{
-            padding: "1%",
-            margin: "auto",
-            width: "fit-content",
-            alignItems: "center",
+            padding: '1%',
+            margin: 'auto',
+            width: 'fit-content',
+            alignItems: 'center',
           }}
         >
           {beneficaires && beneficaires?.length === 0 && (
@@ -247,23 +259,21 @@ const BeneficiaireTable = () => {
       />
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "1rem",
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '1rem',
         }}
       >
         {pageNumbers.map((number) => (
-        <Button
-        key={number}
-        variant="contained"
-        color={currentPage === number ? "primary" : "inherit"}
-        value={number}
-        onClick={(e) => handleChangePage(e, number)}
-      >
-        {number}
-      </Button>
-      
-       
+          <Button
+            key={number}
+            variant="contained"
+            color={currentPage === number ? 'primary' : 'inherit'}
+            value={number}
+            onClick={(e) => handleChangePage(e, number)}
+          >
+            {number}
+          </Button>
         ))}
       </Box>
     </Box>

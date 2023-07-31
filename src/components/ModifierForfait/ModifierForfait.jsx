@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import { Cancel as CancelIcon } from '@mui/icons-material';
-import { Box , TextField  } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 
 const ModifierForfait = () => {
   const { id } = useParams();
@@ -27,7 +27,7 @@ const ModifierForfait = () => {
       setOption_forfait(response.data.option_forfait);
       setSoldeData(response.data.soldeData);
       setSoldeAppels(response.data.soldeAppels);
-      setMontant(response.data.montant)
+      setMontant(response.data.montant);
     } catch (error) {
       console.error('Erreur lors de la récupération du bénéficiaire :', error);
     }
@@ -53,17 +53,23 @@ const ModifierForfait = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const updatedForfait = { ...forfait, nomForfait, soldeAppels,soldeData,montant };
+      const updatedForfait = {
+        ...forfait,
+        nomForfait,
+        soldeAppels,
+        soldeData,
+        montant,
+      };
       await axios.put(`http://localhost:8089/forfaits/{id}`, updatedForfait);
       // Gérer la réussite de la modification, par exemple, rediriger l'utilisateur vers une autre page
     } catch (error) {
       console.error('Erreur lors de la modification du bénéficiaire :', error);
     }
   };
-  
-//   const handleCancel = () => {
-//     history.goBack(); // Redirige l'utilisateur vers la page précédente
-//   };
+
+  //   const handleCancel = () => {
+  //     history.goBack(); // Redirige l'utilisateur vers la page précédente
+  //   };
 
   return (
     <Box
@@ -76,7 +82,9 @@ const ModifierForfait = () => {
       }}
     >
       <div>
-        <h1 style={{ marginBottom: '20px', fontSize: '24px', fontWeight: 'bold' }}>
+        <h1
+          style={{ marginBottom: '20px', fontSize: '24px', fontWeight: 'bold' }}
+        >
           Modifier le forfait
         </h1>
         {forfait && (
@@ -120,8 +128,22 @@ const ModifierForfait = () => {
                 sx={{ marginBottom: '16px', marginRight: '16px' }}
               />
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Button type="submit" variant="contained" sx={{ marginRight: '100px', backgroundColor: '#4caf50', color: '#fff' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  marginRight: '100px',
+                  backgroundColor: '#4caf50',
+                  color: '#fff',
+                }}
+              >
                 Enregistrer
               </Button>
               <Button

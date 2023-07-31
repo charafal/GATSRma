@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import ApiContext from './ApiContext';
 import axios from 'axios';
-import {IBeneficiare} from './types';
+import { IBeneficiare } from './types';
 import { IForfait } from './types';
 import { ITerminal } from './types';
 interface IContextProviderProps {
@@ -11,8 +11,8 @@ interface IContextProviderProps {
 const ContextProvider = ({ children }: IContextProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [beneficaires, setBeneficaires] = useState<IBeneficiare[] | null>(null);
-  const [forfaits, setForfaits]= useState<IForfait[] | null>(null);
-  const [terminals, setTerminals]= useState<ITerminal[]>([]);
+  const [forfaits, setForfaits] = useState<IForfait[] | null>(null);
+  const [terminals, setTerminals] = useState<ITerminal[]>([]);
 
   const getBeneficiaires = async ({
     nom,
@@ -26,23 +26,23 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     setLoading(true);
     try {
       let url = 'http://localhost:8089/beneficiaire/recherche?';
-  
+
       if (nom) {
         url += `nom=${encodeURIComponent(nom)}&`;
       }
-  
+
       if (prenom) {
         url += `prenom=${encodeURIComponent(prenom)}&`;
       }
-  
+
       if (matricule) {
         url += `matricule=${encodeURIComponent(matricule)}`;
       }
-  
+
       const response = await axios.get(url);
       console.log(response.data);
       setBeneficaires(response.data as IBeneficiare[]);
-  
+
       setLoading(false);
       return response.data as IBeneficiare[];
     } catch (error) {
@@ -74,19 +74,18 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     } catch (error) {
       console.log(error);
       setLoading(false);
-      return []; 
+      return [];
     }
   };
   const getTerminals = async ({
     imei,
     etatTerminal,
-    dateReception ,
-    dateCession ,
-                   
+    dateReception,
+    dateCession,
   }: {
-    imei : String;
+    imei: String;
     etatTerminal: String;
-    dateReception : String;
+    dateReception: String;
     dateCession: String;
   }): Promise<ITerminal[]> => {
     setLoading(true);
@@ -95,13 +94,13 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
         'http://localhost:8089/terminals/terminal',
       );
       console.log(response.data);
-      setTerminals(response.data );
+      setTerminals(response.data);
       setLoading(false);
       return response.data as ITerminal[];
     } catch (error) {
       console.log(error);
       setLoading(false);
-      return []; 
+      return [];
     }
   };
 
@@ -125,29 +124,28 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     setLoading(true);
     try {
       console.log('GGGGGGGGGG' + rfDirection);
-      const response = await axios.post(
-        'http://localhost:8089/beneficiaire',
-        {
-          nom: nom,
-          prenom: prenom,
-          matricule: matricule,
-          rfDirection: {id: rfDirection},
-          rfBeneficiaire: {id: rfBeneficiaire},
-          centreCout: {id: centreCout},
-          lignes: {id: lignes},
-        }
-      );
-      {console.log(response.data);
-      setBeneficaires(response.data as IBeneficiare[]);
-      console.log(">>>>>>>>>1 ", beneficaires);
-      setLoading(false);
-      setBeneficaires(response.data as IBeneficiare[]);
-      console.log(">>>>>>>>>2 ", beneficaires);}
+      const response = await axios.post('http://localhost:8089/beneficiaire', {
+        nom: nom,
+        prenom: prenom,
+        matricule: matricule,
+        rfDirection: { id: rfDirection },
+        rfBeneficiaire: { id: rfBeneficiaire },
+        centreCout: { id: centreCout },
+        lignes: { id: lignes },
+      });
+      {
+        console.log(response.data);
+        setBeneficaires(response.data as IBeneficiare[]);
+        console.log('>>>>>>>>>1 ', beneficaires);
+        setLoading(false);
+        setBeneficaires(response.data as IBeneficiare[]);
+        console.log('>>>>>>>>>2 ', beneficaires);
+      }
       return response.data as IBeneficiare[];
     } catch (error) {
       console.log(error);
       setLoading(false);
-      return []; 
+      return [];
     }
   };
   const addForfait = async ({
@@ -170,14 +168,14 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
           soldeData: soldeData,
           soldeAppels: soldeAppels,
           montant: montant,
-        }
+        },
       );
-  
+
       // Ici, vous pouvez effectuer des traitements supplémentaires si nécessaire avec la réponse de l'API
-  
+
       setLoading(false);
       setForfaits(response.data as IForfait[]); // Assurez-vous d'avoir défini setForfaits et loading dans votre composant
-  
+
       return response.data as IForfait[];
     } catch (error) {
       console.log(error);
@@ -185,7 +183,6 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
       return [];
     }
   };
-  
 
   const apiContextValue = {
     getBeneficiaires,
@@ -200,7 +197,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   };
 
   return (
-     <ApiContext.Provider value={apiContextValue}>
+    <ApiContext.Provider value={apiContextValue}>
       {children}
     </ApiContext.Provider>
   );
@@ -208,6 +205,9 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
 
 export default ContextProvider;
 
-function async(arg0: { nomForfait: any; soldeAppel: any; soldeData: any; montant: any; }, arg1: { nomForfait: any; }) {
+function async(
+  arg0: { nomForfait: any; soldeAppel: any; soldeData: any; montant: any },
+  arg1: { nomForfait: any },
+) {
   throw new Error('Function not implemented.');
 }

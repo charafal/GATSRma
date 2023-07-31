@@ -27,7 +27,6 @@ import * as React from 'react';
 //     return { name, calories, fat, carbs, protein };
 // }
 
-
 // function BoxSx(props: any) {
 //     return (
 //         <Box
@@ -52,8 +51,6 @@ import * as React from 'react';
 //     createData('Gingerbread', 356, 16.0, 49, 3.9),
 // ];
 
-
-
 // export default function TableRepartition(props: { quittanceRepar: any, quittanceGlobal: any }) {
 
 //     const [quittanceRepartion, setQuittanceRepartion] = React.useState([]);
@@ -72,7 +69,7 @@ import * as React from 'react';
 
 //     return (
 //         <>
-//             <Card 
+//             <Card
 //                 elevation={0}
 //             >
 //                 <CardHeader
@@ -90,11 +87,9 @@ import * as React from 'react';
 //                             <Typography> <>{BoxSx}</></Typography>
 //                             <TableHead>
 
-
 //                                 { }
 
 //                                 <StyledTypography sx={{ color: "#AF7F1F" }}>
-
 
 //                                     <RenderText value="Quittance Global" />
 //                                 </StyledTypography>
@@ -133,7 +128,6 @@ import * as React from 'react';
 //                             </TableBody>
 //                         </Table>
 //                     </TableContainer>
-
 
 //                     <TableContainer elevation={0} component={Paper}>
 //                         <Table sx={{ minWidth: 650 }} aria-label="simple table">

@@ -1,45 +1,45 @@
-import React from "react";
-import { Box, Divider, IconButton, Stack, Typography } from "@mui/material";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import MenuIcon from "@mui/icons-material/Menu";
-import { styled, useTheme } from "@mui/material/styles";
-import MuiDrawer from "@mui/material/Drawer";
-import { closedMixin, openedMixin } from "../../styles/mixins";
-import { DRAWER_WIDTH } from "../../utils/constants";
-import RenderText from "../../utils/RenderText";
-import { mainListItems } from "./listitems";
+import React from 'react';
+import { Box, Divider, IconButton, Stack, Typography } from '@mui/material';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import MenuIcon from '@mui/icons-material/Menu';
+import { styled, useTheme } from '@mui/material/styles';
+import MuiDrawer from '@mui/material/Drawer';
+import { closedMixin, openedMixin } from '../../styles/mixins';
+import { DRAWER_WIDTH } from '../../utils/constants';
+import RenderText from '../../utils/RenderText';
+import { mainListItems } from './listitems';
 
 const StyledTypography = styled(Typography)({
   //color: "#1d2442",
   //color: "#3ba5df",
-  fontSize: "25px",
-  fontWeight: "bold",
+  fontSize: '25px',
+  fontWeight: 'bold',
   //textAlign: "left",
-  textTransform: "uppercase",
+  textTransform: 'uppercase',
 });
 
 const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
+  shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   width: DRAWER_WIDTH,
   flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
   ...(open && {
     ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
   }),
   ...(!open && {
     ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme),
   }),
 }));
 
-export const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
+export const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -49,10 +49,10 @@ export const SidebarDivider = () => {
   return (
     <Divider
       sx={{
-        mt: "12px",
-        bgcolor: "#fff", // "common.separationLine",
+        mt: '12px',
+        bgcolor: '#fff', // "common.separationLine",
         opacity: 0.1,
-        height: "1px",
+        height: '1px',
       }}
     />
   );
@@ -77,19 +77,19 @@ const AppSidebar = ({
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: "#1D2A5C",
-          color: "white",
+          backgroundColor: '#1D2A5C',
+          color: 'white',
         },
       }}
     >
-      <DrawerHeader sx={{ backgroundColor: "#1D2A5C" }}>
+      <DrawerHeader sx={{ backgroundColor: '#1D2A5C' }}>
         {open ? (
           <Stack
             direction="row"
             alignItems="center"
             justifyContent="space-between"
             spacing={2}
-            sx={{ width: "100%", pl: 2, backgroundColor: "#1D2A5C" }}
+            sx={{ width: '100%', pl: 2, backgroundColor: '#1D2A5C' }}
           >
             <Box>
               <Stack>
@@ -97,20 +97,23 @@ const AppSidebar = ({
                   <StyledTypography sx={{ fontSize: 18 }}>
                     <RenderText value="" />
                   </StyledTypography>
-                  <StyledTypography sx={{ color: "#AF7F1F" }} alignItems={"center"}>
+                  <StyledTypography
+                    sx={{ color: '#AF7F1F' }}
+                    alignItems={'center'}
+                  >
                     <RenderText value="GAT" />
                   </StyledTypography>
                 </Stack>
                 <Divider
-                  sx={{ height: "2px", bgcolor: "#AF7F1F", mt: "2px" }}
+                  sx={{ height: '2px', bgcolor: '#AF7F1F', mt: '2px' }}
                 />
               </Stack>
             </Box>
             <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon sx={{ color: "#fff" }} />
+              {theme.direction === 'rtl' ? (
+                <ChevronRightIcon sx={{ color: '#fff' }} />
               ) : (
-                <ChevronLeftIcon sx={{ color: "#fff" }} />
+                <ChevronLeftIcon sx={{ color: '#fff' }} />
               )}
             </IconButton>
           </Stack>
@@ -126,12 +129,14 @@ const AppSidebar = ({
           </IconButton>
         )}
       </DrawerHeader>
-      <Divider sx={{
-        mt: "12px",
-        bgcolor: "#fff", // "common.separationLine",
-        opacity: 0.1,
-        height: "1px",
-      }}/>
+      <Divider
+        sx={{
+          mt: '12px',
+          bgcolor: '#fff', // "common.separationLine",
+          opacity: 0.1,
+          height: '1px',
+        }}
+      />
       {mainListItems}
     </Drawer>
   );
