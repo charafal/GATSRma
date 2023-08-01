@@ -206,8 +206,7 @@ const BeneficiaireTable = () => {
                         <TableCell key={b.rfBeneficiaire.statutBeneficiaire}>
                           {b.rfBeneficiaire.statutBeneficiaire}
                         </TableCell>
-                        <TableCell key={b.lignes && b.lignes.numLigne}>
-                          {b.lignes && b.lignes.numLigne}
+                        <TableCell key={b.lignes.NumLigne}>{b.lignes.NumLigne}
                         </TableCell>
 
                         <TableCell key={b.actions}>

@@ -354,7 +354,7 @@ export default function HorizontalNonLinearStepper() {
               >
                 {lignes.map((ligne) => (
                   <MenuItem key={ligne.id} value={ligne.id}>
-                    {ligne.nomLigne}
+                    {ligne.numLigne}
                   </MenuItem>
                 ))}
               </Select>
