@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom';
 const mdTheme = createTheme();
 
 export const MainContent = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
