@@ -13,6 +13,7 @@ import {
   CartesianGrid,
   Bar,
 } from 'recharts';
+import CountUp from 'react-countup';
 
 const Card = ({ circleColor, icon, title, number }) => {
   return (
@@ -70,16 +71,26 @@ const data = [
     circleColor: '#f04438',
     icon: <LineAxis />,
     title: 'Bénéficiaires',
-    number: 32,
+    number: <CountUp start={0} end={32} />,
   },
-  { circleColor: '#10b981', icon: <People />, title: 'Lignes', number: 60 },
+  {
+    circleColor: '#10b981',
+    icon: <People />,
+    title: 'Lignes',
+    number: <CountUp start={0} end={62} />,
+  },
   {
     circleColor: '#f79009',
     icon: <Call />,
     title: 'Terminaux',
-    number: 32,
+    number: <CountUp start={0} end={50} />,
   },
-  { circleColor: '#6366f1', icon: <Policy />, title: 'Forfaits', number: 15 },
+  {
+    circleColor: '#6366f1',
+    icon: <Policy />,
+    title: 'Forfaits',
+    number: <CountUp start={0} end={15} />,
+  },
 ];
 
 const pieData = [
