@@ -15,13 +15,13 @@ interface IApiContext {
  
  getForfaits: ({
   nomForfait,
-  // option_forfait,
+   option_forfait,
   soldeData,
   soldeAppels,
    montant,
  }: {
   nomForfait: string;
-  // option_forfait: string;
+   option_forfait: string;
   soldeData: string;
   soldeAppels: string;
     montant: string;

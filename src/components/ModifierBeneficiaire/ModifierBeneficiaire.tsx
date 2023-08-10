@@ -99,16 +99,12 @@ const ModifierBeneficiaire = () => {
     fetchBeneficiaire();
   }, [id]);
 
-  const handleNomChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setNom(event.target.value);
+  const handlePrenomChange = (event: ChangeEvent<{ value: unknown }>) => {
+    setPrenom(event.target.value as string); // Mettez à jour avec l'identifiant
   };
-
-  const handlePrenomChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setPrenom(event.target.value);
+  
+  const handleNomChange = (event: ChangeEvent<{ value: unknown }>) => {
+    setNom(event.target.value as string); // Mettez à jour avec l'identifiant
   };
 
   // const handleMatriculeChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {

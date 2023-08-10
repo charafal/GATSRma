@@ -18,6 +18,7 @@ import ApiContext from '../../context/ApiContext';
 import RenderText from '../../utils/RenderText';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import ModifierForfait from '../ModifierForfait/ModifierForfait';
 
 const StyledTypography = styled(Typography)({
   color: '#1d2442',
@@ -27,6 +28,7 @@ const StyledTypography = styled(Typography)({
 
 const ForfaitSearch = () => {
   const { getForfaits, loading } = React.useContext(ApiContext);
+
   let navigate = useNavigate();
 
   const [forfaits, setForfaits] = useState([]);
@@ -67,19 +69,30 @@ const ForfaitSearch = () => {
     setSoldeAppels(event.target.value);
   };
 
+  
+
   const handleRecherche = async () => {
+    // ...
     try {
-      await getForfaits({
-        nomForfait: nomForfait,
-        soldeData: soldeData,
-     
-        soldeAppels: soldeAppels,
-        montant: montant,
+      const response = await axios.get('http://localhost:8089/forfaits/rechercheForfait', {
+        params: {
+          nomForfait: nomForfait,
+          soldeData: soldeData,
+          soldeAppels: soldeAppels,
+          montant: montant,
+        },
       });
+      console.log('Réponse:', response.data); 
+      setForfaits(response.data);
+  
+      // Utilisez la prop updateForfaits pour mettre à jour les forfaits dans TableForfait
+     
     } catch (error) {
       console.error(error);
     }
   };
+
+  
 
   const handleAjouter = () => {
     // Ajoutez ici la logique pour le bouton "Ajouter"

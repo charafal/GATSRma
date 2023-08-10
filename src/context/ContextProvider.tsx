@@ -43,7 +43,10 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
       console.log(response.data);
       setBeneficaires(response.data as IBeneficiare[]);
 
-      setLoading(false);
+
+       setLoading(false);
+       console.log('RMAAA')
+       console.log(beneficaires)
       return response.data as IBeneficiare[];
     } catch (error) {
       console.log(error);

@@ -81,7 +81,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Statut bénéficaire',
   },
   {
-    id: 'lignes',
+    id: 'ligne',
     numeric: true,
     disablePadding: false,
     label: 'NumLigne',
@@ -165,6 +165,7 @@ const BeneficiaireTable = () => {
         console.error('Erreur lors de la récupération des lignes :', error),
       );
   }, []);
+  
 
   return (
     <Box sx={{ width: '95%', marginX: '2%' }}>
@@ -200,14 +201,14 @@ const BeneficiaireTable = () => {
                         <TableCell key={b.rfDirection.nomDirection}>
                           {b.rfDirection.nomDirection}
                         </TableCell>
-                        <TableCell key={b.centreCout.centreCout}>
-                          {b.centreCout.centreCout}
-                        </TableCell>
+                        <TableCell>
+      {b?.centreCout?.centreCout ?? 'N/A'}
+    </TableCell>
                         <TableCell key={b.rfBeneficiaire.statutBeneficiaire}>
                           {b.rfBeneficiaire.statutBeneficiaire}
                         </TableCell>
-                        <TableCell key={b.lignes && b.lignes.numLigne}>
-                          {b.lignes && b.lignes.numLigne}
+                        <TableCell >
+                          
                         </TableCell>
 
                         <TableCell key={b.actions}>
