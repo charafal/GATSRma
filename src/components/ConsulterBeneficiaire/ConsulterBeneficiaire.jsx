@@ -68,7 +68,7 @@ const ConsulterBeneficiaire = () => {
                 <TableCell>
                   <strong>Date de départ:</strong>
                 </TableCell>
-                <TableCell>{beneficiaire.dateDepart}</TableCell>
+                <TableCell>{beneficiaire.ligne.numLigne}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>

@@ -23,6 +23,9 @@ import Forfait from '../../pages/Forfait';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+
 const StyledTypography = styled(Typography)({
   color: '#1d2442',
   fontSize: '25px',
@@ -41,7 +44,7 @@ const headCells: readonly HeadCell[] = [
     id: 'nomForfait',
     numeric: false,
     disablePadding: true,
-    label: 'NomForfait',
+    label: 'Nom Forfait',
   },
   {
     id: 'soldeData',
@@ -83,7 +86,7 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-function EnhancedTableHead() {
+function  EnhancedTableHead  () {
   return (
     <TableHead sx={{ paddingLeft: '20px' }}>
       <TableRow>
@@ -120,8 +123,7 @@ function EnhancedTableToolbar() {
     </Toolbar>
   );
 }
-
-export default function EnhancedTable() {
+const TableForfait = () => {
   const [dense, setDense] = React.useState(true);
   const { forfaits } = React.useContext(ApiContext);
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -152,7 +154,7 @@ export default function EnhancedTable() {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <>
+    
       <Box sx={{ width: '95%', marginX: '2%' }} key={Math.random()}>
         <EnhancedTableToolbar />
         <Paper
@@ -171,15 +173,15 @@ export default function EnhancedTable() {
             >
               <EnhancedTableHead />
               <TableBody>
-                {currentForfaits?.map((f) => {
+                {currentForfaits?.map((f: any) => {
                   return (
                     <TableRow hover key={f.id}>
-                      <TableCell>{f.nomForfait}</TableCell>
-                      <TableCell>{f.soldeAppels}</TableCell>
-                      <TableCell>{f.soldeData}</TableCell>
-                      <TableCell>{f.option_forfait}</TableCell>
-                      <TableCell>{f.rfForfait?.statutForfait}</TableCell>
-                      <TableCell>{f.montant}</TableCell>
+                      <TableCell key={f.nomForfait}>{f.nomForfait}</TableCell>
+                      <TableCell key={f.soldeAppels}>{f.soldeAppels}</TableCell>
+                      <TableCell key={f.soldeData}>{f.soldeData}</TableCell>
+                      <TableCell key={f.option_forfait}>{f.option_forfait}</TableCell>
+                      <TableCell key={f.rfForfait?.statutForfait}>{f.rfForfait?.statutForfait}</TableCell>
+                      <TableCell key={f.montant}>{f.montant}</TableCell>
                       <TableCell>
                         <Tooltip title="Modifier">
                           <IconButton
@@ -223,6 +225,7 @@ export default function EnhancedTable() {
           label="Dense padding"
         />
       </Box>
-    </>
+
   );
-}
+};
+export default TableForfait;

@@ -81,7 +81,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Statut bénéficaire',
   },
   {
-    id: 'ligne',
+    id: 'lignes',
     numeric: true,
     disablePadding: false,
     label: 'NumLigne',
@@ -154,18 +154,29 @@ const BeneficiaireTable = () => {
     : 0;
 
   const pageNumbers = Array.from({ length: pageCount }, (_, i) => i + 1);
-  const [lignes, setLignes] = useState([]);
-
-  useEffect(() => {
-    // Récupérer les données des lignes depuis l'API
-    axios
-      .get('http://localhost:8089/lignes/ligne')
-      .then((response) => setLignes(response.data))
-      .catch((error) =>
-        console.error('Erreur lors de la récupération des lignes :', error),
-      );
-  }, []);
   
+
+  const BeneficiaireTable = () => {
+    // ... autres constantes et fonctions
+  
+    const [lignesItems, setLignesItems] = React.useState([]); // Utilisez "lignesItems" pour stocker l'état
+  
+    useEffect(() => {
+      // Récupérer les données des lignes depuis l'API
+      axios
+        .get('http://localhost:8089/lignes/ligne')
+        .then(function(response) {
+          setLignesItems(response.data); // Mettez à jour lignesItems avec les données du backend
+        })
+        .catch((error) =>
+          console.error('Erreur lors de la récupération des lignes :', error),
+        );
+    }, []);
+  
+    // Reste du code...
+  }
+  
+
 
   return (
     <Box sx={{ width: '95%', marginX: '2%' }}>
@@ -207,9 +218,9 @@ const BeneficiaireTable = () => {
                         <TableCell key={b.rfBeneficiaire.statutBeneficiaire}>
                           {b.rfBeneficiaire.statutBeneficiaire}
                         </TableCell>
-                        <TableCell >
-                          
-                        </TableCell>
+                        <TableCell key={b.ligne?.numLigne}>
+            {b.ligne?.numLigne ?? 'N/A'} {/* Use 'N/A' as a fallback */}
+          </TableCell>
 
                         <TableCell key={b.actions}>
                           <Tooltip title="Modifier">

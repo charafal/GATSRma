@@ -27,9 +27,16 @@ const ModifierBeneficiaire = () => {
   const [directionOtions, setDirectionOptions] = useState('');
   const [centreCoutOptions, setCentreCoutOptions] = useState([]);
   const [centreCoutsItems, setCentreCoutItems] = React.useState([]);
-  const [rfBeneficiaire, setRfBeneficiaire] = useState<string[]>([]);
+  //const [rfBeneficiaire, setRfBeneficiaire] = useState<string[]>([]);
+  const [rfDirection, setRfDirection] = useState<string[]>([]);
   const [centreCout, setCentreCout] = React.useState('');
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [matricule, setMatricule] = useState('');
+
+  const [rfBeneficiaire, setRfBeneficiaire] = useState<string>('');
+  const [rfBeneficiaireOptions, setRfBeneficiaireOptions] = useState<string[]>([]);
+
+
 
   const [directionItems, setDirectionItems] = React.useState([]);
   useEffect(() => {
@@ -52,6 +59,19 @@ const ModifierBeneficiaire = () => {
         console.log(error);
       });
   }, []);
+ 
+
+useEffect(() => {
+  axios
+    .get('http://localhost:8089/rfbeneficiaires') // Remplacez l'URL par l'URL correcte
+    .then(function (response) {
+      setRfBeneficiaire(response.data); // Mettez à jour rfBeneficiaire avec les données du backend
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}, []);
+
 
   type Beneficiaire = {
     nom: string;
@@ -75,13 +95,14 @@ const ModifierBeneficiaire = () => {
         setBeneficiaire(beneficiaireResponse.data);
         setNom(beneficiaireResponse.data.nom);
         setPrenom(beneficiaireResponse.data.prenom);
-        //setMatricule(beneficiaireResponse.data.matricule);
+        setMatricule(beneficiaireResponse.data.matricule);
         //setCentrecout(beneficiaireResponse.data?.centrecout?.centrecout);
 
-        setDirection(beneficiaireResponse.data.rfDirection.nomDirection);
-        setRfBeneficiaire(
-          beneficiaireResponse.data.rfBeneficiaire.statutBeneficiaire,
-        );
+        // setDirection(beneficiaireResponse.data.rfDirection.nomDirection);
+         setRfBeneficiaire(beneficiaireResponse.data.rfBeneficiaire.statutBeneficiaire),
+        // );
+        setRfDirection(beneficiaireResponse.data.rfDirection.id); // Utilisez l'ID de la direction
+        setCentrecout(beneficiaireResponse.data.centrecout.id); 
         //setDirection(directionResponse.data.direction.nomDirection);
 
         // Mettez à jour les options du centre cout
@@ -106,10 +127,13 @@ const ModifierBeneficiaire = () => {
   const handleNomChange = (event: ChangeEvent<{ value: unknown }>) => {
     setNom(event.target.value as string); // Mettez à jour avec l'identifiant
   };
-
-  // const handleMatriculeChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-  //   setMatricule(event.target.value);
-  // };
+  const handleMatriculeChange = (event: ChangeEvent<{ value: unknown }>) => {
+    setMatricule(event.target.value as string); // Mettez à jour avec l'identifiant
+  };
+  const handleRfBeneficiaireChange = (event: ChangeEvent<{ value: unknown }>) => {
+    setRfBeneficiaire(event.target.value as string); // Mettez à jour avec l'identifiant
+  };
+  
   const handleDirectionChange = (event: ChangeEvent<{ value: unknown }>) => {
     setDirection(event.target.value as string); // Mettez à jour avec l'identifiant
   };
@@ -133,17 +157,20 @@ const ModifierBeneficiaire = () => {
         ...beneficiaire,
         nom,
         prenom,
+        matricule,
         direction: {
-          nomDirection: direction, // Mettez à jour avec l'objet complet de la direction
+          id: rfDirection, // Mettez à jour avec l'objet complet de la direction
         },
         centrecout: {
-          centreCout: centrecout, // Mettez à jour avec l'objet complet du centre de cout
+          id: centrecout, // Mettez à jour avec l'objet complet du centre de cout
         },
+       
       };
       await axios.put(
-        `http://localhost:8089/beneficiaire/updateBeneficiaire2/{id}`, // Replace {id} with the actual value
-        updatedBeneficiaire,
+        `http://localhost:8089/beneficiaire/updateBeneficiaire2/${id}`, // Utilisez ${id} pour remplacer l'ID
+        updatedBeneficiaire
       );
+      
       setSuccessMessage('La modification a été effectuée avec succès!');
       // Gérer la réussite de la modification, par exemple, rediriger l'utilisateur vers une autre page
     } catch (error) {
@@ -235,6 +262,35 @@ const ModifierBeneficiaire = () => {
                   ))}
                 </TextField>
               </Stack>
+            </Box>
+            <Box>
+            <TextField
+                label="Matricule"
+                variant="outlined"
+                value={matricule}
+                onChange={handleMatriculeChange}
+                fullWidth
+              />
+               <TextField
+                select
+                size="small"
+                label="RfBeneficiaire"
+                value={rfBeneficiaire}
+                onChange={handleRfBeneficiaireChange}
+                variant="filled"
+                fullWidth
+              >
+                <MenuItem key="none" value="">
+                  None
+                </MenuItem>
+                {rfBeneficiaireOptions.map((option: string, index: number) => (
+                  <MenuItem key={index} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+
             </Box>
             {/* Ajoutez d'autres champs de saisie pour les autres informations du bénéficiaire */}
           </Stack>

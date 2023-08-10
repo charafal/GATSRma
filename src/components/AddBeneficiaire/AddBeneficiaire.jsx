@@ -101,23 +101,33 @@ export default function HorizontalNonLinearStepper() {
     setCompleted(newCompleted);
 
     if (allStepsCompleted()) {
+
+      const payload={
+        nom: "ziadoooooooooo",
+        prenom: "hfhdef",
+        matricule: "r43132999",
+        ligne: {
+          "id": 1
+        },
+        centreCout: {
+          "id": 1
+        },
+        rfDirection: {
+          "id": 1
+        },
+        rfBeneficiaire: {
+          "id": 1
+        }
+      }
       try {
         // Récupérez les données du formulaire
-        const formData = {
-          nom: 'nom', // Valeur du champ nom
-          prenom: 'prenom', // Valeur du champ prénom
-          matricule: 'matricule', // Valeur du champ matricule
-          centreCout: 'centrecout',
-          rfBeneficiaire: 'statutBeneficiaire',
-          rfDirections: 'rfDirection',
-          ligne: 'ligne',
-          // Autres champs du formulaire
-        };
+        
 
         // Envoyez les données au backend en utilisant une requête POST
+        console.log("tryyyying")
         const response = await axios.post(
           'http:localhost/8089/beneficiaire',
-          formData,
+          payload,
         );
         const newBeneficiaryId = response.data.id;
         console.log(newBeneficiaryId.id);
@@ -248,13 +258,19 @@ export default function HorizontalNonLinearStepper() {
     rfBeneficiaire: '',
     rfDirection: '',
     centreCout: '',
-    ligne: '',
+    ligne: {},
     // Autres champs du formulaire
   });
 
   const handleLigneChange = (event) => {
     setSelectedLigne(event.target.value);
   };
+
+  useEffect(() => {
+    // Récupérer la liste des lignes disponibles depuis l'API
+    console.log(formData.ligne)
+  }, [formData]);
+  
 
   const renderForm = (step) => {
     switch (step) {
@@ -296,9 +312,9 @@ export default function HorizontalNonLinearStepper() {
                 variant="outlined"
                 fullWidth
                 select
-                value={formData.centreCout}
+                value={formData.centreCout.id}
                 onChange={(e) =>
-                  setFormData({ ...formData, centreCout: e.target.value })
+                  setFormData({ ...formData, centreCout: {id : e.target.value} })
                 }
               >
                 {centreCout.map((centreCout) => (
@@ -314,9 +330,9 @@ export default function HorizontalNonLinearStepper() {
                 variant="outlined"
                 fullWidth
                 select
-                value={formData.rfDirection}
+                value={formData.rfDirection.id}
                 onChange={(e) =>
-                  setFormData({ ...formData, rfDirection: e.target.value })
+                  setFormData({ ...formData, rfDirection: { id : e.target.value} })
                 }
               >
                 {rfDirections.map((rfDirection) => (
@@ -330,9 +346,9 @@ export default function HorizontalNonLinearStepper() {
                 variant="outlined"
                 fullWidth
                 select
-                value={formData.rfBeneficiaire}
+                value={formData.rfBeneficiaire.id}
                 onChange={(e) =>
-                  setFormData({ ...formData, rfBeneficiaire: e.target.value })
+                  setFormData({ ...formData, rfBeneficiaire: {id : e.target.value} })
                 }
               >
                 {rfBeneficiaire.map((rfBeneficiaire) => (
@@ -348,8 +364,10 @@ export default function HorizontalNonLinearStepper() {
               <Select
                 labelId="select-ligne-label"
                 id="select-ligne"
-                value={selectedLigne}
-                onChange={handleLigneChange}
+                value={formData.ligne.id}
+                onChange={(e) =>
+                  setFormData({ ...formData, ligne: {id :e.target.value} })
+                }
                 label="Ligne"
               >
                 {ligne.map((ligne) => (
@@ -441,10 +459,66 @@ export default function HorizontalNonLinearStepper() {
   const { addBeneficiaire, loading } = useContext(ApiContext);
   const handleCreerBeneficiaire = async () => {
     console.log('handleCreerBeneficiaire: ' + formData.rfBeneficiaire);
+    const payload={
+      nom: "ziadoooooooooo",
+      prenom: "hfhdef",
+      matricule: "r43132999",
+      ligne: {
+        "id": 1
+      },
+      centreCout: {
+        "id": 1
+      },
+      rfDirection: {
+        "id": 1
+      },
+      rfBeneficiaire: {
+        "id": 1
+      }
+    }
+
     try {
-      const data = await addBeneficiaire({ ...formData });
+      // Récupérez les données du formulaire
+      
+
+      // Envoyez les données au backend en utilisant une requête POST
+      console.log("tryyyying" , formData)
+      const response = await axios.post(
+        "http://localhost:8089/beneficiaire", // Corrected URL with proper scheme and port
+        formData
+      );
+      
+      const newBeneficiaryId = response.data.id;
+      console.log(newBeneficiaryId.id);
+
+      // Vérifiez la réponse du backend et effectuez des actions en conséquence
+      if (response.status === 200) {
+        // L'ajout du bénéficiaire a réussi
+        console.log('Bénéficiaire ajouté avec succès !');
+        // Effectuez ici d'autres actions ou affichez un message de succès à l'utilisateur
+      } else {
+        // Il y a eu une erreur lors de l'ajout du bénéficiaire
+        console.log("Erreur lors de l'ajout du bénéficiaire");
+        // Effectuez ici d'autres actions ou affichez un message d'erreur à l'utilisateur
+      }
+
+      // Mettez à jour l'état de la ligne affectée
+      const ligne_id = formData.ligne_id; // Remplacez "ligneId" par le champ approprié qui contient l'ID de la ligne affectée
+      const updatedLigne = await axios.put(
+        `http://localhost:8089/lignes/updateLigne`,
+        { etat: 'affecté' }, // Remplacez "etat" par le champ approprié qui représente l'état de la ligne
+      );
+      setLigneAffectee(updatedLigne.data);
+
+      // Réinitialisez le formulaire et les étapes
+      handleReset();
     } catch (error) {
-      console.error(error);
+      // Gérez les erreurs de la requête
+      console.error(
+        "Erreur lors de l'appel de l'API d'ajout du bénéficiaire :",
+        error,
+      );
+      // Effectuez ici d'autres actions ou affichez un message d'erreur à l'utilisateur
     }
     alert('beneficiaire ajouter');
   };
