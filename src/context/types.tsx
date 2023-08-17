@@ -9,7 +9,7 @@ export interface IBeneficiare {
   centreCout: String;
   statut: String;
   dateLivraison: String;
-  lignes: number;
+  ligne: number;
   actions: any;
 }
 export interface IForfait {

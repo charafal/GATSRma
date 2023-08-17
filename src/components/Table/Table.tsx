@@ -81,7 +81,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Statut bénéficaire',
   },
   {
-    id: 'lignes',
+    id: 'ligne',
     numeric: true,
     disablePadding: false,
     label: 'NumLigne',
@@ -166,6 +166,11 @@ const BeneficiaireTable = () => {
       );
   }, []);
 
+  useEffect(() => {
+    //show beneficiaires
+    //console.log('>>>>>>>>>>>>>>', beneficaires);
+  } , [beneficaires])
+
   return (
     <Box sx={{ width: '95%', marginX: '2%' }}>
       <EnhancedTableToolbar />
@@ -192,6 +197,7 @@ const BeneficiaireTable = () => {
                     currentPage * beneficiairesPerPage,
                   )
                   .map((b: any, index) => {
+                    console.log('llllllllllllll', b);
                     return (
                       <TableRow hover key={b.id}>
                         <TableCell key={b.nom}>{b.nom}</TableCell>
@@ -206,9 +212,9 @@ const BeneficiaireTable = () => {
                         <TableCell key={b.rfBeneficiaire.statutBeneficiaire}>
                           {b.rfBeneficiaire.statutBeneficiaire}
                         </TableCell>
-                        <TableCell >
+                        <TableCell key={b.ligne?.numLigne}>
+                          {b.ligne ? b.ligne.numLigne : 'Non affecté'}
                         </TableCell>
-
                         <TableCell key={b.actions}>
                           <Tooltip title="Modifier">
                             <IconButton

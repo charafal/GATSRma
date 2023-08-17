@@ -111,7 +111,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     centreCout,
     rfDirection,
     rfBeneficiaire,
-    lignes,
+    ligne,
   }: {
     nom: string;
     prenom: string;
@@ -119,7 +119,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     centreCout: number;
     rfDirection: number;
     rfBeneficiaire: number;
-    lignes: number;
+    ligne: number;
   }): Promise<IBeneficiare[]> => {
     setLoading(true);
     try {
@@ -131,7 +131,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
         rfDirection: { id: rfDirection },
         rfBeneficiaire: { id: rfBeneficiaire },
         centreCout: { id: centreCout },
-        lignes: { id: lignes },
+        ligne: { id: ligne },
       });
       {
         console.log(response.data);

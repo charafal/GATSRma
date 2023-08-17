@@ -252,8 +252,11 @@ export default function HorizontalNonLinearStepper() {
     // Autres champs du formulaire
   });
 
-  const handleLigneChange = (event) => {
-    setSelectedLigne(event.target.value);
+  const handleLigneChange = (ligne) => {
+    console.log('handleLigneChange: ' + ligne);
+    console.log('handleLigneChange: ' + ligne.target.value);
+    setSelectedLigne(ligne.target.value);
+    setFormData({ ...formData, ligne: ligne.target.value });
   };
 
   const renderForm = (step) => {
@@ -349,7 +352,7 @@ export default function HorizontalNonLinearStepper() {
                 labelId="select-ligne-label"
                 id="select-ligne"
                 value={selectedLigne}
-                onChange={handleLigneChange}
+                onChange={(selectedLigne) => handleLigneChange(selectedLigne)}
                 label="Ligne"
               >
                 {lignes.map((ligne) => (
@@ -442,6 +445,7 @@ export default function HorizontalNonLinearStepper() {
   const handleCreerBeneficiaire = async () => {
     console.log('handleCreerBeneficiaire: ' + formData.rfBeneficiaire);
     try {
+      console.log('formdata: ' + formData);
       const data = await addBeneficiaire({ ...formData });
     } catch (error) {
       console.error(error);
