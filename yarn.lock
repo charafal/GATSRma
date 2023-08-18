@@ -8245,6 +8245,11 @@
   "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.45.0.tgz"
   "version" "7.45.0"
 
+"react-icons@^4.10.1":
+  "integrity" "sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw=="
+  "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.10.1.tgz"
+  "version" "4.10.1"
+
 "react-intl@^6.4.1":
   "integrity" "sha512-/C9Sl/5//ohfkNG6AWlJuf4BhTXsbzyk93K62A4zRhSPANyOGpKZ+fWhN+TLfFd5YjDUHy+exU/09y0w1bO4Xw=="
   "resolved" "https://registry.npmjs.org/react-intl/-/react-intl-6.4.4.tgz"
@@ -8401,7 +8406,7 @@
     "prop-types" "^15.6.2"
     "react-lifecycles-compat" "^3.0.4"
 
-"react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.6.0 || 17 || 18", "react@^16.8.0 || ^17 || ^18", "react@^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.2.0", "react@>= 16", "react@>= 16.3.0", "react@>= 16.8.0", "react@>=15.0.0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0":
+"react@*", "react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.6.0 || 17 || 18", "react@^16.8.0 || ^17 || ^18", "react@^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.2.0", "react@>= 16", "react@>= 16.3.0", "react@>= 16.8.0", "react@>=15.0.0", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
