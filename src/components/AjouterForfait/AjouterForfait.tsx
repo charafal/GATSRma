@@ -88,8 +88,8 @@ function HorizontalNonLinearStepper() {
     setActiveStep(step);
   };
   const [formData, setFormData] = useState({
-    nomForfait: '',
-        optionForfait: '',
+        nomForfait: '',
+        option_forfait: '',
         soldeData: '',
         soldeAppels: '',
         montant: '',
@@ -181,8 +181,8 @@ function HorizontalNonLinearStepper() {
               label="Option forfait"
               variant="outlined"
               fullWidth
-              value={formData.optionForfait}
-              onChange={(e) => setFormData({ ...formData, optionForfait: e.target.value })}
+              value={formData.option_forfait}
+              onChange={(e) => setFormData({ ...formData, option_forfait: e.target.value })}
             />
           </Box>
           <Box sx={{ display: 'flex', gap: '20px', margin: '10px' }}>
@@ -283,7 +283,7 @@ function HorizontalNonLinearStepper() {
     console.log('handleCreerForfait: ' + formData.rfForfait);
     try {
       const data = await addForfait({      nomForfait: formData.nomForfait,
-        option_forfait: formData.optionForfait,
+        option_forfait: formData.option_forfait,
         soldeData: formData.soldeData,
         soldeAppels: formData.soldeAppels,
         montant: formData.montant,

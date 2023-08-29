@@ -34,4 +34,14 @@ export interface ITerminal {
   dateReception: String;
   dateCession: String;
   action: any;
+};
+export interface ILigne{
+  id: number;
+  numLigne: String;
+  statut_forfit: String;
+  Direction: String;
+  forfait: String ;
+  date_activation: String;
+  date_resilliatiom: String;
+  action: any;
 }
