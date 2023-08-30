@@ -101,7 +101,7 @@ interface IApiContext {
   getLigne: ({
     numLigne,
     forfait,
-    direction,
+    direction,  
     date_activation,
     date_resilliation,
   }:{

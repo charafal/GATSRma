@@ -115,54 +115,6 @@ function HorizontalNonLinearStepper() {
     }
   };
 
-  // Autres états et fonctions
-
-  //   const handleCreerForfait = async () => {
-  //     if(allStepsCompleted()){
-  //     try {
-  //       // Récupérez les données du formulaire
-  //       const formData = {
-  //         nomForfait,
-  //         optionForfait,
-  //         soldeData,
-  //         soldeAppels,
-  //         montant,
-  //         rfForfait: {
-  //           statutForfait,
-  //         },
-  //       };
-
-  //       // Envoyez les données au backend en utilisant une requête POST
-  //       const response = await axios.post('http://localhost:8089/forfaits', formData);
-
-  //       // Vérifiez la réponse du backend et effectuez des actions en conséquence
-  //       if (response.status === 200) {
-  //         console.log('Forfait ajouté avec succès !');
-  //         // Effectuez ici d'autres actions ou affichez un message de succès à l'utilisateur
-  //         alert('Forfait ajouté avec succès !');
-  //       } else {
-  //         console.log("Erreur lors de l'ajout du forfait");
-  //         // Effectuez ici d'autres actions ou affichez un message d'erreur à l'utilisateur
-  //         alert('Erreur lors de l\'ajout du forfait');
-  //       }
-
-  //       // Réinitialisez les valeurs du formulaire après l'ajout du forfait
-  //       setNomForfait('');
-  //       setOptionForfait('');
-  //       setSoldeData('');
-  //       setSoldeAppels('');
-  //       setMontant('');
-  //       setStatutForfait('active');
-  //     } catch (error) {
-  //       // Gérez les erreurs de la requête
-  //       console.error("Erreur lors de l'appel de l'API d'ajout du forfait :", error);
-  //       // Effectuez ici d'autres actions ou affichez un message d'erreur à l'utilisateur
-  //       alert("Erreur lors de l'appel de l'API d'ajout du forfait");
-  //     }
-  //   }
-  // }
-
-  // Autres états et fonctions
 
   const renderForm = (step: number) => {
     switch (step) {
