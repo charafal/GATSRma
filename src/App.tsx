@@ -11,6 +11,10 @@ import ModifierBeneficiaire from './components/ModifierBeneficiaire/ModifierBene
 import ModifierForfait from './components/ModifierForfait/ModifierForfait';
 import Terminal from './pages/Terminal';
 import AjouterForfait from './components/AjouterForfait/AjouterForfait';
+import AjouterTerminal from './components/AjouterTerminal/AjouterTerminal';
+import Ligne from './pages/Ligne';
+import Service from './pages/Service';
+import Facture from './pages/Facture';
 
 function App() {
   return (
@@ -38,7 +42,11 @@ function App() {
               <Route path="terminals" element={<Terminal />} />
               <Route path="forfaits" element={<Forfait />} />
               <Route path="ajouterForfait" element={<AjouterForfait />} />
-              {/* <Route path="reglement" element={<Reglement />} /> */}
+              <Route path="ajouterTerminal" element={<AjouterTerminal />} />
+              <Route path="lignes" element={<Ligne />} /> {/* Remplacez [] par vos données de lignes */}
+
+              <Route path="services" element={<Service />} />
+              <Route path="factures" element={<Facture   />} />
             </Route>
           </Route>
         </Routes>

@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import ApiContext from './ApiContext';
 import axios from 'axios';
-import { IBeneficiare } from './types';
+import { IBeneficiare, ILigne } from './types';
 import { IForfait } from './types';
 import { ITerminal } from './types';
 interface IContextProviderProps {
@@ -12,8 +12,8 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   const [loading, setLoading] = useState(false);
   const [beneficaires, setBeneficaires] = useState<IBeneficiare[] | null>(null);
   const [forfaits, setForfaits] = useState<IForfait[] | null>(null);
-  const [terminals, setTerminals] = useState<ITerminal[]>([]);
-
+  const [terminals, setTerminals] = useState<ITerminal[] | null>(null);
+  const [lignes, setLignes] = useState<ILigne[] | null>(null);
   const getBeneficiaires = async ({
     nom,
     prenom,
@@ -103,6 +103,35 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
       return [];
     }
   };
+  const getLigne = async ({
+    numLigne,
+    forfait,
+    direction,
+    date_activation,
+    date_resilliation,
+  }: {
+    numLigne: string;
+    forfait: number;
+    direction: number;
+    date_activation: string;
+    date_resilliation: string;
+  }): Promise<ILigne[]> => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        'http://localhost:8089/lignes/ligne',
+      );
+      console.log(response.data);
+      setLignes(response.data);
+      setLoading(false);
+      return response.data as ILigne[];
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      return [];
+    }
+  };
+  
 
   const addBeneficiaire = async ({
     nom,
@@ -183,17 +212,97 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
       return [];
     }
   };
+  const addTerminal = async ({
+    dateReception,
+    dateCession,
+    imei,
+    etatTerminal,
+  }: {
+    dateReception: string;
+    dateCession: string;
+    imei: string;
+    etatTerminal: string;
+  }): Promise<ITerminal[]> => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        'http://localhost:8089/terminals', // Replace with the URL of your API for adding a terminal
+        {
+          dateReception: dateReception,
+          dateCession: dateCession,
+          imei: imei,
+          etatTerminal: etatTerminal,
+        },
+      );
+  
+      // Additional processing with the API response if needed
+  
+      setLoading(false);
+      setTerminals(response.data as ITerminal[]); // Make sure to define setTerminals and loading in your component
+  
+      return response.data as ITerminal[];
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      return [];
+    }
+  };
+  
+  const addLigne = async ({
+    numLigne,
+    forfait,
+    direction,
+    date_activation,
+    date_resilliation,
+  }: {
+    numLigne: string;
+    forfait: number;
+    direction: number;
+    date_activation: string;
+    date_resilliation: string;
+  }): Promise<ILigne[]> => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        'http://localhost:8089/lignes/ligne', // Remplacez l'URL par l'URL de votre API pour ajouter une ligne
+        {
+          numLigne: numLigne,
+          forfait: forfait,
+          direction: direction,
+          date_activation: date_activation,
+          date_resilliation: date_resilliation,
+        }
+      );
+  
+      // Ici, vous pouvez effectuer des traitements supplémentaires si nécessaire avec la réponse de l'API
+  
+      setLoading(false);
+      setLignes(response.data as ILigne[]); // Assurez-vous d'avoir défini setLignes et loading dans votre composant
+  
+      return response.data as ILigne[];
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      return [];
+    }
+  };
+  
+  
 
   const apiContextValue = {
     getBeneficiaires,
-    addBeneficiaire,
-    addForfait,
-    getForfaits,
-    getTerminals,
-    forfaits: forfaits,
-    terminals: terminals,
-    beneficaires: beneficaires,
-    loading,
+  addBeneficiaire,
+  addForfait,
+  addTerminal,
+  addLigne,
+  getForfaits,
+  getTerminals,
+  getLigne,
+  forfaits: forfaits,
+  terminals: terminals,
+  beneficaires: beneficaires,
+  lignes: lignes,
+  loading,
   };
 
   return (

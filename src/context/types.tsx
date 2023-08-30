@@ -38,9 +38,12 @@ export interface ITerminal {
 export interface ILigne{
   id: number;
   numLigne: String;
-  statut_forfit: String;
-  Direction: String;
-  forfait: String ;
+ 
+  Direction: number;
+  forfait: {
+    id: number;
+    nomForfait: String;
+  } ;
   date_activation: String;
   date_resilliatiom: String;
   action: any;

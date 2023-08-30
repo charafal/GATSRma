@@ -68,7 +68,7 @@ const SearchMultiCriteriaTerminalForm = () => {
   };
 
   const handleAjouter = () => {
-    navigate('/TerminalAdd');
+    navigate('/AjouterTerminal');
   };
 
   return (

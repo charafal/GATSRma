@@ -103,7 +103,7 @@ const ForfaitSearch = () => {
         variant="h6"
         id="tableTitle"
       >
-        <RenderText value="Recherche multicritère par forfait" />
+        <RenderText value="Recherche multicritère par ligne" />
       </StyledTypography>
       <Paper
         sx={{
@@ -127,7 +127,7 @@ const ForfaitSearch = () => {
                 
                 id="nom forfait"
                 value={nomForfait}
-                label="Nom Forfait"
+                label="NumLigne"
                 onChange={handleNomForfaitChange}
                 variant="filled"
               />
@@ -137,7 +137,7 @@ const ForfaitSearch = () => {
             <TextField
               size="small"
               id="montant"
-              label="Montant"
+              label="statut ligne"
               variant="filled"
               value={montant}
               onChange={handleMontantChange}
