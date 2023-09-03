@@ -21,7 +21,7 @@ interface HeadCell {
   numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
+const headCells = [
   {
     id: 'numLigne',
     numeric: true,
@@ -45,13 +45,19 @@ const headCells: readonly HeadCell[] = [
     id: 'date_activation',
     numeric: false,
     disablePadding: false,
-    label: 'Date d\'activation',
+    label: 'Date activation',
   },
   {
     id: 'date_resilliation',
     numeric: true,
     disablePadding: true,
     label: 'Date de Résiliation',
+  },
+  {
+    id: 'terminal',
+    numeric: true,
+    disablePadding: true,
+    label: 'terminal',
   },
   {
     id: 'action',
@@ -95,14 +101,92 @@ function EnhancedTableToolbar() {
 
 const LigneTable = () => {
   const [dense, setDense] = useState(true);
-  const [lignes, setLignes] = useState<ILigne[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [lignesPerPage] = useState(5);
+  
+  const initialData = [
+    {
+      "id": 0,
+      "version": 0,
+      "numLigne": "string",
+      "dateActivation": "2023-09-03T18:54:37.307Z",
+      "dateResilliation": "2023-09-03T18:54:37.307Z",
+      "dateRenouvelement": "2023-09-03T18:54:37.307Z",
+      "forfait": {
+        "id": 0,
+        "version": 0,
+        "nomForfait": "string",
+        "option_forfait": "string",
+        "soldeData": "string",
+        "soldeAppels": "string",
+        "montant": 0,
+        "dateActivation": "2023-09-03T18:54:37.307Z",
+        "dateResiliation": "2023-09-03T18:54:37.307Z",
+        "dateRenouvelement": "2023-09-03T18:54:37.307Z",
+        "rfForfait": {
+          "id": 0,
+          "version": 0,
+          "statutForfait": "string",
+          "creeLe": "2023-09-03T18:54:37.307Z",
+          "creePar": "string",
+          "modifierLe": "2023-09-03T18:54:37.307Z",
+          "modifierPar": "string"
+        },
+        "creeLe": "2023-09-03T18:54:37.307Z",
+        "creePar": "string",
+        "modifierLe": "2023-09-03T18:54:37.307Z",
+        "modifierPar": "string"
+      },
+      "refLigne": {
+        "id": 0,
+        "version": 0,
+        "statutLigne": "string",
+        "creeLe": "2023-09-03T18:54:37.307Z",
+        "creePar": "string",
+        "modifierLe": "2023-09-03T18:54:37.307Z",
+        "modifierPar": "string"
+      },
+      "terminal": {
+        "id": 0,
+        "version": 0,
+        "dateReception": "2023-09-03T18:54:37.307Z",
+        "dateCession": "2023-09-03T18:54:37.307Z",
+        "nomTerminal": "string",
+        "imei": "string",
+        "garantie": 0,
+        "rfTerminal": {
+          "id": 0,
+          "version": 0,
+          "etatTerminal": "string",
+          "creeLe": "2023-09-03T18:54:37.307Z",
+          "creePar": "string",
+          "modifierLe": "2023-09-03T18:54:37.307Z",
+          "modifierPar": "string",
+          "statutTerminal": "string"
+        },
+        "creeLe": "2023-09-03T18:54:37.307Z",
+        "creePar": "string",
+        "modifierLe": "2023-09-03T18:54:37.307Z",
+        "modifierPar": "string"
+      },
+      "creeLe": "2023-09-03T18:54:37.307Z",
+      "creePar": "string",
+      "modifierLe": "2023-09-03T18:54:37.307Z",
+      "modifierPar": "string"
+    }
+  ];
+  const [lignes, setLignes] = useState(initialData);
+
+  
 
   useEffect(() => {
     axios
       .get('http://localhost:8089/lignes/ligne')
-      .then((response) => setLignes(response.data))
+      .then((response) => {
+        console.log(response.data)
+        setLignes(response.data)
+      
+      })
       .catch((error) => console.error('Erreur lors de la récupération des lignes :', error));
   }, []);
 
@@ -141,18 +225,16 @@ const LigneTable = () => {
             <TableBody>
               {lignes &&
                 lignes
-                  .slice(
-                    (currentPage - 1) * lignesPerPage,
-                    currentPage * lignesPerPage,
-                  )
-                  .map((ligne: ILigne, index) => {
+                  
+                  .map((ligne, index) => {
                     return (
                       <TableRow hover key={index}>
                         <TableCell>{ligne.numLigne}</TableCell>
-                        <TableCell>{ligne.direction}</TableCell>
+                        <TableCell>-</TableCell>
                         <TableCell>{ligne.forfait.nomForfait}</TableCell>
-                        <TableCell>{ligne.date_activation}</TableCell>
-                        <TableCell>{ligne.date_resilliation}</TableCell>
+                        <TableCell>{ligne.dateActivation}</TableCell>
+                        <TableCell>{ligne.dateResilliation}</TableCell>
+                        <TableCell>{ligne.terminal.nomTerminal}</TableCell>
 
                         <TableCell>
                           <Tooltip title="Modifier">

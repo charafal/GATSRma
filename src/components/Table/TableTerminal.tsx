@@ -48,6 +48,12 @@ const headCells: readonly HeadCell[] = [
     label: 'IMEI',
   },
   {
+    id: 'nomTerminal',
+    numeric: false,
+    disablePadding: false,
+    label: 'Nom terminal',
+  },
+  {
     id: 'etatTerminal',
     numeric: false,
     disablePadding: false,
@@ -141,6 +147,7 @@ export default function EnhancedTable() {
                 {terminals?.map((t: any) => (
                   <TableRow hover key={t.id}>
                     <TableCell>{t.imei}</TableCell>
+                    <TableCell>{t.nomTerminal}</TableCell>
                     <TableCell>{t.rfTerminal.etatTerminal}</TableCell>
                     <TableCell>{t.dateReception}</TableCell>
                     <TableCell>{t.dateCession}</TableCell>

@@ -25,6 +25,7 @@ const ModifierBeneficiaire = () => {
   const [centrecout, setCentrecout] = useState('');
   const [direction, setDirection] = useState('');
   const [directionOtions, setDirectionOptions] = useState('');
+  const[beneficiaireOptions, setBeneficaireOptions]= useState('');
   const [centreCoutOptions, setCentreCoutOptions] = useState([]);
   const [centreCoutsItems, setCentreCoutItems] = React.useState([]);
   const [rfBeneficiaire, setRfBeneficiaire] = useState<string[]>([]);
@@ -77,8 +78,11 @@ const ModifierBeneficiaire = () => {
         setPrenom(beneficiaireResponse.data.prenom);
         //setMatricule(beneficiaireResponse.data.matricule);
         //setCentrecout(beneficiaireResponse.data?.centrecout?.centrecout);
-
-        setDirection(beneficiaireResponse.data.rfDirection.nomDirection);
+          console.log("beneficiaireResponse",beneficiaireResponse)
+        setDirection(beneficiaireResponse.data.rfDirection.id);
+        setCentreCout(beneficiaireResponse.data.centreCout.id);
+        setBeneficaireOptions(beneficiaireResponse.data.rfBeneficiaire.id);
+        
         setRfBeneficiaire(
           beneficiaireResponse.data.rfBeneficiaire.statutBeneficiaire,
         );
@@ -87,6 +91,8 @@ const ModifierBeneficiaire = () => {
         // Mettez à jour les options du centre cout
         setCentreCoutOptions(centreCoutResponse.data);
         setDirectionOptions(directionResponse.data);
+        setDirectionOptions(directionResponse.data);
+        setBeneficaireOptions(beneficiaireResponse.data);
       } catch (error) {
         console.error(
           'Erreur lors de la récupération du bénéficiaire :',
@@ -122,6 +128,7 @@ const ModifierBeneficiaire = () => {
     setCentrecout(event.target.value as string); // Mettez à jour avec l'identifiant
   };
 
+
   {
     successMessage && (
       <Typography variant="body1" color="success">
@@ -137,13 +144,18 @@ const ModifierBeneficiaire = () => {
         ...beneficiaire,
         nom,
         prenom,
-        direction: {
-          nomDirection: direction, // Mettez à jour avec l'objet complet de la direction
+        rfDirection: {
+          id: direction, // Mettez à jour avec l'objet complet de la direction
         },
-        centrecout: {
-          centreCout: centrecout, // Mettez à jour avec l'objet complet du centre de cout
+        centreCout: {
+          id: centreCout, // Mettez à jour avec l'objet complet du centre de cout
         },
+        rfBeneficiaire:{
+          id: beneficiaire,
+        }
       };
+      
+      console.log(updatedBeneficiaire)
       await axios.put(
         `http://localhost:8089/beneficiaire/updateBeneficiaire2/{id}`, // Replace {id} with the actual value
         updatedBeneficiaire,
@@ -213,17 +225,19 @@ const ModifierBeneficiaire = () => {
                     None
                   </MenuItem>
                   {directionItems.map((item: any, index: number) => (
-                    <MenuItem key={item.id} value={item.id}>
+                    <MenuItem key={item.id} value={item.id} onClick={()=>{
+                      setDirection(item.id)
+                    }}>
                       {item.nomDirection}
                     </MenuItem>
                   ))}
                 </TextField>
-
+                
                 {/* Centre cout TextField */}
                 <TextField
                   select
                   size="small"
-                  value={centrecout}
+                  value={centreCout}
                   label="Centre cout"
                   onChange={handleCentreCoutChange}
                   variant="filled"
@@ -233,7 +247,9 @@ const ModifierBeneficiaire = () => {
                     None
                   </MenuItem>
                   {centreCoutsItems.map((item: any, index: number) => (
-                    <MenuItem key={index} value={item.id}>
+                    <MenuItem key={index} value={item.id} onClick={()=>{
+                      setCentreCout(item.id)
+                    }}>
                       {item.centreCout}
                     </MenuItem>
                   ))}
@@ -257,3 +273,4 @@ const ModifierBeneficiaire = () => {
 };
 
 export default ModifierBeneficiaire;
+

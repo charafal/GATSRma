@@ -12,13 +12,14 @@ export interface IBeneficiare {
   ligne: number;
   actions: any;
 }
+
 export interface IForfait {
   //rfForfait: any;
   id: number;
   nomForfait: String;
   option_forfait: String;
   soldeData: String;
-  montant: String;
+  montant: string;
   //statutForfait : String;
   soldeAppels: String;
   action: any;
@@ -30,6 +31,7 @@ export interface IForfait {
 export interface ITerminal {
   id: number;
   imei: string;
+  nomTerminal: string;
   etatTerminal: String;
   dateReception: String;
   dateCession: String;
@@ -38,12 +40,9 @@ export interface ITerminal {
 export interface ILigne{
   id: number;
   numLigne: String;
- 
-  direction:number;
-  forfait: {
-    id: number;
-    nomForfait: String;
-  } ;
+  rfLigne: String;
+  direction:String;
+  forfait: String ;
   date_activation: String;
   date_resilliation: String;
   action: any;

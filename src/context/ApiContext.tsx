@@ -8,34 +8,38 @@ interface IApiContext {
     nom,
     prenom,
     matricule,
+    rfDirection
   }: {
     nom: string;
     prenom: string;
     matricule: string;
+    rfDirection: string
   }) => Promise<IBeneficiare[]>;
  
  getForfaits: ({
   nomForfait,
-  // option_forfait,
+ //option_forfait,
   soldeData,
   soldeAppels,
    montant,
  }: {
   nomForfait: string;
-  // option_forfait: string;
+  //option_forfait: string;
   soldeData: string;
   soldeAppels: string;
-    montant: string;
+  montant: string;
   }) => Promise<IForfait[]>;
 
   getTerminals: ({
     imei,
+    nomTerminal,
     etatTerminal,
     dateReception,
     dateCession,
     action,
   }: {
     imei: string;
+    nomTerminal: String;
     etatTerminal: string;
     dateReception: string;
     dateCession: string;
@@ -74,11 +78,13 @@ interface IApiContext {
   }) => Promise<IForfait[]>;
   addTerminal: ({
     imei,
+    nomTerminal,
     dateReception,
     dateCession,
     etatTerminal,
   }:{
     imei: string;
+    nomTerminal: string;
     dateReception: string;
     dateCession: string ;
     etatTerminal: string
@@ -86,28 +92,32 @@ interface IApiContext {
 
   addLigne: ({
     numLigne,
+    rfLigne,
     forfait,
     direction,
     date_activation,
     date_resilliation,
   }:{
     numLigne: string;
-    forfait:number;
-    direction: number;
+    rfLigne: string;
+    forfait:string;
+    direction: string;
     date_activation: string;
     date_resilliation: string;
   })=> Promise<ILigne[]>;
 
-  getLigne: ({
+  getLignes: ({
     numLigne,
+    rfLigne,
     forfait,
     direction,  
     date_activation,
     date_resilliation,
-  }:{
+  }:{                               
     numLigne: string;
-    forfait:number;
-    direction: number;
+    rfLigne: string;
+    forfait:string;
+    direction: string;
     date_activation: string;
     date_resilliation: string;
   })=> Promise<ILigne[]>;
@@ -126,7 +136,7 @@ const ApiContext = createContext<IApiContext>({
   addTerminal: async () => [],
   getForfaits: async () => [],
   getTerminals: async () => [],
-  getLigne: async () => [],
+  getLignes: async () => [],
   addLigne: async () => [],
   forfaits: [],
   beneficaires: [],

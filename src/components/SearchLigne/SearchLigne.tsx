@@ -26,12 +26,13 @@ const StyledTypography = styled(Typography)({
 });
 
 const LigneSearch = () => {
-  const { getLigne, loading } = React.useContext(ApiContext);
+  const { getLignes, loading } = React.useContext(ApiContext);
   let navigate = useNavigate();
 
   const [forfaits, setForfaits] = useState([]);
   const [numLigne, setNumLigne] = useState("");
   const [forfait, setForfait] = useState("");
+  const[rfLigne, setRfLigne]= useState("");
   const [direction, setDirection] = useState("");
   const [date_activation, setDate_activation] = useState("");
   const [date_resilliation, setData_resilliation] = useState("");
@@ -77,10 +78,11 @@ const LigneSearch = () => {
 
   const handleRecherche = async () => {
     try {
-      await getLigne({
+      await getLignes({
        numLigne: numLigne,
-       forfait: 1,
-       direction: 1,
+       rfLigne: rfLigne,
+       forfait: forfait,
+       direction: direction,
        date_activation: date_activation,
        date_resilliation: date_resilliation,
 

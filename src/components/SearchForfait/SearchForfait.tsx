@@ -36,16 +36,16 @@ const ForfaitSearch = () => {
   const [montant, setMontant] = useState("");
 
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:8089/forfaits/rechercheForfait')
-      .then(function (response) {
-        setForfaits(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:8089/forfaits/rechercheForfait')
+  //     .then(function (response) {
+  //       setForfaits(response.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   const handleNomForfaitChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -74,10 +74,11 @@ const ForfaitSearch = () => {
       await getForfaits({
         nomForfait: nomForfait,
         soldeData: soldeData,
-     
+        
         soldeAppels: soldeAppels,
         montant: montant,
       });
+      
     } catch (error) {
       console.error(error);
     }

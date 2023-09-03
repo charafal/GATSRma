@@ -20,7 +20,9 @@ function AddTerminal() {
   
   const [imei, setIMEI] = useState('');
   const [garantie, setGarantie] = useState('');
-  
+  const [typeTerminal, setTypeTerminal]= useState('');
+  const [etatTerminal, setEtateTerminal]= useState('');
+  const [nomTerminal, setNomTerminal] = useState('');
 
   const { addTerminal } = useContext(ApiContext);
 
@@ -60,24 +62,32 @@ function AddTerminal() {
               label="Imei"
               variant="outlined"
               fullWidth
-              value={dateCession}
-              onChange={(e) => setDateCession(e.target.value)}
+              value={imei}
+              onChange={(e) => setIMEI(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Nom terminal"
+              variant="outlined"
+              fullWidth
+              value={nomTerminal}
+              onChange={(e) => setNomTerminal(e.target.value)}
               sx={{ mb: 2 }}
             />
              <TextField
               label="Type Terminal"
               variant="outlined"
               fullWidth
-              value={dateCession}
-              onChange={(e) => setDateCession(e.target.value)}
+              value={typeTerminal}
+              onChange={(e) => setTypeTerminal(e.target.value)}
               sx={{ mb: 2 }}
             />
              <TextField
               label="Etat du terminal"
               variant="outlined"
               fullWidth
-              value={dateCession}
-              onChange={(e) => setDateCession(e.target.value)}
+              value={etatTerminal}
+              onChange={(e) => setEtateTerminal(e.target.value)}
               sx={{ mb: 2 }}
             />
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', py: 1 }}>
@@ -104,6 +114,7 @@ function AddTerminal() {
         dateReception,
         dateCession,
         imei,
+        nomTerminal,
         etatTerminal: '', // Add etatTerminal here
         garantie,
     
@@ -123,6 +134,8 @@ function AddTerminal() {
       setDateReception('');
       setDateCession('');
       setIMEI('');
+      setNomTerminal('');
+      
       setGarantie('');
     } catch (error) {
       console.error("Erreur lors de l'appel de l'API d'ajout du terminal :", error);

@@ -21,8 +21,7 @@ import Forfait from '../../pages/Forfait';
 
 const steps = [
   'Création du forfait',
-  'Affecter une ligne',
-  'Affecter un forfait',
+  
 ];
 
 function HorizontalNonLinearStepper() {
@@ -35,6 +34,7 @@ function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState<{ [key: number]: boolean }>({});
   const [forfait, setForfait] = useState<Forfait[]>([]);
+  const [rfForaitS ,setrfForaitS] = useState(1)
 
   const [rfForfait, setRFForfait] = useState<RFForfait[]>([]);
   useEffect(() => {
@@ -163,7 +163,9 @@ function HorizontalNonLinearStepper() {
               onChange={(e) => setFormData({ ...formData, rfForfait: e.target.value })}
             >
               {rfForfait.map((rfForait) => (
-                      <MenuItem key={rfForait.id} value={rfForait.id}>
+                      <MenuItem key={rfForait.id} value={rfForait.id} onClick={()=>{
+                        setrfForaitS(rfForait.id)
+                      }}>
                         {rfForait.statutForfait}
                       </MenuItem>
                   ))}
@@ -189,37 +191,9 @@ function HorizontalNonLinearStepper() {
             </Box>
           </form>
         );
-      case 1:
-        return (
-          // Le formulaire pour la deuxième étape
-          // ... (le code de la deuxième étape reste inchangé)
-          <div></div>
-        );
-      case 2:
-        return (
-          <form>
-            {/* Votre formulaire pour la troisième étape */}
-            <Box sx={{ display: 'flex', gap: '20px', margin: '10px' }}>
-              <TextField
-                label="Le forfait"
-                variant="outlined"
-                fullWidth
-                select
-                sx={{ width: '50%' }}
-                value={nomForfait}
-                onChange={(e) => setNomForfait(e.target.value)}
-              >
-                {forfait.map((forfait) => (
-                  <MenuItem key={forfait.id} value={forfait.id}>
-                    {forfait.nomForfait}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Box>
-          </form>
-        );
-      // default:
-      //   return null;
+     
+     
+      
     }
   };
 
@@ -234,12 +208,25 @@ function HorizontalNonLinearStepper() {
   const handleCreerForfait = async () => {
     console.log('handleCreerForfait: ' + formData.rfForfait);
     try {
-      const data = await addForfait({      nomForfait: formData.nomForfait,
-        option_forfait: formData.option_forfait,
-        soldeData: formData.soldeData,
-        soldeAppels: formData.soldeAppels,
+      // const data = await addForfait({      nomForfait: formData.nomForfait,
+      //   option_forfait: formData.option_forfait,
+      //   soldeData: formData.soldeData,
+      //   soldeAppels: formData.soldeAppels,
+      //   montant: formData.montant,
+      //   });
+      const payload ={
+        nomForfait : formData.nomForfait ,
         montant: formData.montant,
-        });
+        soldeAppels: formData.soldeAppels,
+        soldeData: formData.soldeData,
+        option_forfait: formData.option_forfait,
+        rfForfait : {
+          id : rfForaitS
+        }
+      }
+      await axios.post(`http://localhost:8089/forfaits`,
+        payload
+      )
     } catch (error) {
       console.error(error);
     }

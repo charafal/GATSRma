@@ -56,6 +56,7 @@ const ModifierForfait = () => {
       const updatedForfait = {
         ...forfait,
         nomForfait,
+        option_forfait,
         soldeAppels,
         soldeData,
         montant,

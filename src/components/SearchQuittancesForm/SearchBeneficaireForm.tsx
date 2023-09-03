@@ -74,7 +74,7 @@ const SearchMultiCriteriaForm = () => {
   const [centreCoutsItems, setCentreCoutItems] = React.useState([]);
 
   const [rfBeneficiaire, setRefBeneficiaire] = React.useState('');
-  const [rfDirection, setDirection] = React.useState('');
+  const [rfDirection, setrfDirection] = React.useState('');
   const [centreCout, setCentreCout] = React.useState('');
   const [nom, setNom] = React.useState('');
   const [prenom, setPrenom] = React.useState('');
@@ -89,8 +89,11 @@ const SearchMultiCriteriaForm = () => {
     console.log(rfBeneficiaire);
   };
 
-  const handleDirectionChange = (event: SelectChangeEvent) => {
-    setDirection(event.target.value as string);
+  // const handleDirectionChange = (event: SelectChangeEvent) => {
+  //   setDirection(event.target.value as string);
+  // };
+  const handlerfDirectionChange = (event: SelectChangeEvent) => {
+    setrfDirection(event.target.value as string);
   };
 
   const handleForfaitChange = (event: SelectChangeEvent) => {
@@ -127,7 +130,7 @@ const SearchMultiCriteriaForm = () => {
 
   const handleRecherche = async () => {
     try {
-      await getBeneficiaires({ nom, prenom, matricule });
+      await getBeneficiaires({ nom, prenom, matricule , rfDirection});
     } catch (error) {
       console.error(error);
     }
@@ -139,7 +142,7 @@ const SearchMultiCriteriaForm = () => {
   return (
     <Box sx={{ width: '95%', marginX: '2%' }}>
       <StyledTypography
-        sx={{
+        sx={{ 
           flex: '1 1 100%',
           fontWeight: 'bold',
           marginBottom: '1em',
@@ -235,7 +238,7 @@ const SearchMultiCriteriaForm = () => {
                 id="branche-select"
                 value={rfDirection}
                 label="Direction"
-                onChange={handleDirectionChange}
+                onChange={handlerfDirectionChange}
                 variant="filled"
               >
                 <MenuItem key={Math.random()} value={''}>

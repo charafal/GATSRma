@@ -29,6 +29,7 @@ const SearchMultiCriteriaTerminalForm = () => {
   const { getTerminals, loading } = React.useContext(ApiContext);
   const [imei, setImei] = useState('');
   const [etatTerminal, setEtatTerminal] = useState('');
+  const [nomTerminal, setNomTerminal] = useState('');
   //const [montant, setMontant] = useState("");
 
   // const [loading, setLoading] = useState(false);
@@ -57,6 +58,7 @@ const SearchMultiCriteriaTerminalForm = () => {
     try {
       await getTerminals({
         imei: imei,
+        nomTerminal: nomTerminal,
         etatTerminal: etatTerminal,
         dateReception: '',
         dateCession: '',
