@@ -25,15 +25,16 @@ const StyledTypography = styled(Typography)({
   fontWeight: 500,
 });
 
-const ForfaitSearch = () => {
-  const { getForfaits, loading } = React.useContext(ApiContext);
+const LigneSearch = () => {
+  const { getLigne, loading } = React.useContext(ApiContext);
   let navigate = useNavigate();
 
   const [forfaits, setForfaits] = useState([]);
-  const [nomForfait, setNomForfait] = useState("");
-  const [soldeData, setSoldeData] = useState("");
-  const [soldeAppels, setSoldeAppels] = useState("");
-  const [montant, setMontant] = useState("");
+  const [numLigne, setNumLigne] = useState("");
+  const [forfait, setForfait] = useState("");
+  const [direction, setDirection] = useState("");
+  const [date_activation, setDate_activation] = useState("");
+  const [date_resilliation, setData_resilliation] = useState("");
 
 
   useEffect(() => {
@@ -47,36 +48,42 @@ const ForfaitSearch = () => {
       });
   }, []);
 
-  const handleNomForfaitChange = (event: {
+  const handleNumLigneChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setNomForfait(event.target.value);
+    setNumLigne(event.target.value);
   };
 
-  const handleMontantChange = (event: {
+  const handleForfaitChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setMontant(event.target.value);
+    setForfait(event.target.value);
   };
-  const handleSoldeDataChange = (event: {
+  const handleDirectionChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setSoldeData(event.target.value);
+    setDirection(event.target.value);
   };
-  const handleSoldeAppelsChange = (event: {
+  const handleData_activationChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setSoldeAppels(event.target.value);
+    setDate_activation(event.target.value);
+  };
+  const handleData_resilliationChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setData_resilliation(event.target.value);
   };
 
   const handleRecherche = async () => {
     try {
-      await getForfaits({
-        nomForfait: nomForfait,
-        soldeData: soldeData,
-     
-        soldeAppels: soldeAppels,
-        montant: montant,
+      await getLigne({
+       numLigne: numLigne,
+       forfait: 1,
+       direction: 1,
+       date_activation: date_activation,
+       date_resilliation: date_resilliation,
+
       });
     } catch (error) {
       console.error(error);
@@ -86,7 +93,7 @@ const ForfaitSearch = () => {
   const handleAjouter = () => {
     // Ajoutez ici la logique pour le bouton "Ajouter"
     // Cette fonction sera exécutée lorsque le bouton "Ajouter" sera cliqué
-    navigate('/AjouterForfait ');
+    navigate('/AjouterLigne ');
     console.log('Ajouter button clicked');
   };
 
@@ -125,10 +132,10 @@ const ForfaitSearch = () => {
               <TextField
                 size="small"
                 
-                id="nom forfait"
-                value={nomForfait}
+                id="Num ligne"
+                value={numLigne}
                 label="NumLigne"
-                onChange={handleNomForfaitChange}
+                onChange={handleNumLigneChange}
                 variant="filled"
               />
                 
@@ -136,27 +143,35 @@ const ForfaitSearch = () => {
             </FormControl>
             <TextField
               size="small"
-              id="montant"
-              label="statut ligne"
+              id="forfaut"
+              label="forfait"
               variant="filled"
-              value={montant}
-              onChange={handleMontantChange}
+              value={forfait}
+              onChange={handleForfaitChange}
             />
             <TextField
               size="small"
-              id="soldeData"
-              label="Solde data"
+              id="direction"
+              label="Direction"
               variant="filled"
-              value={soldeData}
-              onChange={handleSoldeDataChange}
+              value={direction}
+              onChange={handleDirectionChange}
             />
             <TextField
               size="small"
-              id="soldeAppels"
-              label="Solde appels"
+              id="date_activation"
+              label="date_activation"
               variant="filled"
-              value={soldeAppels}
-              onChange={handleSoldeAppelsChange}
+              value={date_activation}
+              onChange={handleData_activationChange}
+            />
+            <TextField
+              size="small"
+              id="date_resilliation"
+              label="date_resilliation"
+              variant="filled"
+              value={date_resilliation}
+              onChange={handleData_resilliationChange}
             />
           </Box>
 
@@ -193,4 +208,4 @@ const ForfaitSearch = () => {
   );
 };
 
-export default ForfaitSearch;
+export default LigneSearch;

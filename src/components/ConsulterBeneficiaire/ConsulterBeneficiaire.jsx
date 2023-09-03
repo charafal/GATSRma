@@ -64,12 +64,12 @@ const ConsulterBeneficiaire = () => {
                 </TableCell>
                 <TableCell>{beneficiaire.matricule}</TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>
+              {/* <TableRow>
+                 <TableCell>
                   <strong>Numero de ligne:</strong>
                 </TableCell>
                 <TableCell>{beneficiaire.ligne.numLigne}</TableCell>
-              </TableRow>
+              </TableRow> */} 
               <TableRow>
                 <TableCell>
                   <strong>Direction:</strong>

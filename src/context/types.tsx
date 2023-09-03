@@ -39,12 +39,12 @@ export interface ILigne{
   id: number;
   numLigne: String;
  
-  Direction: number;
+  direction:number;
   forfait: {
     id: number;
     nomForfait: String;
   } ;
   date_activation: String;
-  date_resilliatiom: String;
+  date_resilliation: String;
   action: any;
 }

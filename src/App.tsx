@@ -15,6 +15,7 @@ import AjouterTerminal from './components/AjouterTerminal/AjouterTerminal';
 import Ligne from './pages/Ligne';
 import Service from './pages/Service';
 import Facture from './pages/Facture';
+import AjouterLigne from './components/AjouterLigne/AjouterLigne';
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
               <Route path="ajouterForfait" element={<AjouterForfait />} />
               <Route path="ajouterTerminal" element={<AjouterTerminal />} />
               <Route path="lignes" element={<Ligne />} /> {/* Remplacez [] par vos données de lignes */}
-
+              <Route path="ajouterLigne" element={<AjouterLigne />} />
               <Route path="services" element={<Service />} />
               <Route path="factures" element={<Facture   />} />
             </Route>

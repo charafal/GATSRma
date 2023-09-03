@@ -1,9 +1,10 @@
 import { ReactNode, useState } from 'react';
 import ApiContext from './ApiContext';
 import axios from 'axios';
-import { IBeneficiare, ILigne } from './types';
+import { IBeneficiare} from './types';
 import { IForfait } from './types';
 import { ITerminal } from './types';
+import { ILigne } from './types';
 interface IContextProviderProps {
   children: ReactNode;
 }
@@ -18,10 +19,12 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     nom,
     prenom,
     matricule,
+    rfDirection,
   }: {
     nom: string;
     prenom: string;
     matricule: string;
+    rfDirection: string;
   }): Promise<IBeneficiare[]> => {
     setLoading(true);
     try {
@@ -64,11 +67,22 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   }): Promise<IForfait[]> => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        'http://localhost:8089/forfaits/rechercheForfait',
-      );
+      let url = 'http://localhost:8089/forfaits/rechercheForfait';
+
+      if (nomForfait) {
+        url += `nomForfait=${encodeURIComponent(nomForfait)}&`;
+      }
+
+      if (montant) {
+        url += `montant=${encodeURIComponent(montant)}&`;
+      }
+
+    
+
+      const response = await axios.get(url);
       console.log(response.data);
       setForfaits(response.data as IForfait[]);
+
       setLoading(false);
       return response.data as IForfait[];
     } catch (error) {
@@ -79,11 +93,13 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   };
   const getTerminals = async ({
     imei,
+    nomTerminal,
     etatTerminal,
     dateReception,
     dateCession,
   }: {
     imei: String;
+    nomTerminal: String;
     etatTerminal: String;
     dateReception: String;
     dateCession: String;
@@ -103,16 +119,18 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
       return [];
     }
   };
-  const getLigne = async ({
+  const getLignes = async ({
     numLigne,
+    rfLigne,
     forfait,
     direction,
     date_activation,
     date_resilliation,
   }: {
     numLigne: string;
-    forfait: number;
-    direction: number;
+    rfLigne: string;
+    forfait: string;
+    direction: string;
     date_activation: string;
     date_resilliation: string;
   }): Promise<ILigne[]> => {
@@ -216,11 +234,13 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     dateReception,
     dateCession,
     imei,
+    nomTerminal,
     etatTerminal,
   }: {
     dateReception: string;
     dateCession: string;
     imei: string;
+    nomTerminal: string;
     etatTerminal: string;
   }): Promise<ITerminal[]> => {
     setLoading(true);
@@ -231,6 +251,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
           dateReception: dateReception,
           dateCession: dateCession,
           imei: imei,
+          nomTerminal: nomTerminal,
           etatTerminal: etatTerminal,
         },
       );
@@ -250,23 +271,26 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   
   const addLigne = async ({
     numLigne,
+    rfLigne,
     forfait,
     direction,
     date_activation,
     date_resilliation,
   }: {
     numLigne: string;
-    forfait: number;
-    direction: number;
+    rfLigne: string
+    forfait: string;
+    direction: string;
     date_activation: string;
     date_resilliation: string;
   }): Promise<ILigne[]> => {
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:8089/lignes/ligne', // Remplacez l'URL par l'URL de votre API pour ajouter une ligne
+        'http://localhost:8089/lignes', // Remplacez l'URL par l'URL de votre API pour ajouter une ligne
         {
           numLigne: numLigne,
+          rfLigne: rfLigne,
           forfait: forfait,
           direction: direction,
           date_activation: date_activation,
@@ -297,7 +321,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   addLigne,
   getForfaits,
   getTerminals,
-  getLigne,
+  getLignes,
   forfaits: forfaits,
   terminals: terminals,
   beneficaires: beneficaires,

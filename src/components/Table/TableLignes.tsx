@@ -30,7 +30,7 @@ const headCells: readonly HeadCell[] = [
   },
  
   {
-    id: 'Direction',
+    id: 'direction',
     numeric: true,
     disablePadding: true,
     label: 'Direction',
@@ -48,7 +48,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Date d\'activation',
   },
   {
-    id: 'date_resilliatiom',
+    id: 'date_resilliation',
     numeric: true,
     disablePadding: true,
     label: 'Date de Résiliation',
@@ -149,10 +149,10 @@ const LigneTable = () => {
                     return (
                       <TableRow hover key={index}>
                         <TableCell>{ligne.numLigne}</TableCell>
-                        <TableCell>{ligne.Direction}</TableCell>
+                        <TableCell>{ligne.direction}</TableCell>
                         <TableCell>{ligne.forfait.nomForfait}</TableCell>
                         <TableCell>{ligne.date_activation}</TableCell>
-                        <TableCell>{ligne.date_resilliatiom}</TableCell>
+                        <TableCell>{ligne.date_resilliation}</TableCell>
 
                         <TableCell>
                           <Tooltip title="Modifier">
