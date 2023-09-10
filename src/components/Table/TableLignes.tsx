@@ -30,10 +30,10 @@ const headCells = [
   },
  
   {
-    id: 'direction',
-    numeric: true,
+    id: 'refLigne',
+    numeric: false,
     disablePadding: true,
-    label: 'Direction',
+    label: 'Statut ligne',
   },
   {
     id: 'forfait',
@@ -103,7 +103,8 @@ const LigneTable = () => {
   const [dense, setDense] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [lignesPerPage] = useState(5);
-  
+  const itemsPerPage = 5;
+ 
   const initialData = [
     {
       "id": 0,
@@ -176,7 +177,23 @@ const LigneTable = () => {
     }
   ];
   const [lignes, setLignes] = useState(initialData);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentLignes = lignes?.slice(startIndex, endIndex);
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '80%',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    borderRadius: 24,
+  };
+  
 
+
+  const [open, setOpen] = React.useState(false);
   
 
   useEffect(() => {
@@ -223,14 +240,14 @@ const LigneTable = () => {
           >
             <EnhancedTableHead />
             <TableBody>
-              {lignes &&
-                lignes
-                  
-                  .map((ligne, index) => {
+              {currentLignes?.map((ligne, index) => {
                     return (
                       <TableRow hover key={index}>
                         <TableCell>{ligne.numLigne}</TableCell>
-                        <TableCell>-</TableCell>
+                        <TableCell>
+  {ligne.refLigne ? ligne.refLigne.statutLigne : 'En stock'}
+</TableCell>
+
                         <TableCell>{ligne.forfait.nomForfait}</TableCell>
                         <TableCell>{ligne.dateActivation}</TableCell>
                         <TableCell>{ligne.dateResilliation}</TableCell>

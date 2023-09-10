@@ -40,7 +40,7 @@ interface HeadCell {
   numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
+const headCells = [
   {
     id: 'imei',
     numeric: false,
@@ -58,6 +58,12 @@ const headCells: readonly HeadCell[] = [
     numeric: false,
     disablePadding: false,
     label: 'État du terminal',
+  },
+  {
+    id: 'statutTerminal',
+    numeric: false,
+    disablePadding: false,
+    label: 'Statut du terminal',
   },
   {
     id: 'dateReception',
@@ -149,6 +155,7 @@ export default function EnhancedTable() {
                     <TableCell>{t.imei}</TableCell>
                     <TableCell>{t.nomTerminal}</TableCell>
                     <TableCell>{t.rfTerminal.etatTerminal}</TableCell>
+                    <TableCell>{t.rfTerminal.statutTerminal}</TableCell>
                     <TableCell>{t.dateReception}</TableCell>
                     <TableCell>{t.dateCession}</TableCell>
                     <TableCell>

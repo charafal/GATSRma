@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import { Cancel as CancelIcon } from '@mui/icons-material';
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, MenuItem, Stack } from '@mui/material';
 
 const ModifierForfait = () => {
   const { id } = useParams();
@@ -12,9 +12,11 @@ const ModifierForfait = () => {
   const [nomForfait, setNomForfait] = useState('');
   const [option_forfait, setOption_forfait] = useState('');
   const [soldeData, setSoldeData] = useState('');
+  const [ statut_forfait, setStatut_forfait]= useState('');
   const [soldeAppels, setSoldeAppels] = useState('');
   const [montant, setMontant] = useState('');
-
+  const[rfForfait, setRfForfait]= useState('');
+  const [rfForfaitItems, setRfForfaitItems] = React.useState([]);
   useEffect(() => {
     fetchForfait();
   }, []);
@@ -25,20 +27,27 @@ const ModifierForfait = () => {
       setForfait(response.data);
       setNomForfait(response.data.nomForfait);
       setOption_forfait(response.data.option_forfait);
+      setStatut_forfait(response.data.rfForfait.statut_forfait);
       setSoldeData(response.data.soldeData);
       setSoldeAppels(response.data.soldeAppels);
       setMontant(response.data.montant);
     } catch (error) {
-      console.error('Erreur lors de la récupération du bénéficiaire :', error);
+      console.error('Erreur lors de la récupération du forfait :', error);
     }
   };
 
   const handleNomForfaitChange = (event) => {
     setNomForfait(event.target.value);
   };
+  const handlerfForfaitChange = (event) => {
+    setRfForfait(event.target.value);
+  };
 
   const handleOption_forfaitChange = (event) => {
     setOption_forfait(event.target.value);
+  };
+  const handleStatut_forfaitChange = (event) => {
+    setStatut_forfait(event.target.value);
   };
   const handleSoldeDataChange = (event) => {
     setSoldeData(event.target.value);
@@ -57,6 +66,10 @@ const ModifierForfait = () => {
         ...forfait,
         nomForfait,
         option_forfait,
+        rfForfait:{
+          id: rfForfait,
+        },
+        statut_forfait,
         soldeAppels,
         soldeData,
         montant,
@@ -64,7 +77,7 @@ const ModifierForfait = () => {
       await axios.put(`http://localhost:8089/forfaits/{id}`, updatedForfait);
       // Gérer la réussite de la modification, par exemple, rediriger l'utilisateur vers une autre page
     } catch (error) {
-      console.error('Erreur lors de la modification du bénéficiaire :', error);
+      console.error('Erreur lors de la modification du forfait :', error);
     }
   };
 
@@ -105,6 +118,16 @@ const ModifierForfait = () => {
                 onChange={handleOption_forfaitChange}
                 sx={{ marginBottom: '16px' }}
               />
+               <TextField
+                label="Statut Forfait"
+                variant="outlined"
+                value={statut_forfait}
+                onChange={handleStatut_forfaitChange}
+                sx={{ marginBottom: '16px' }}
+              />
+                
+
+              
             </Box>
             <Box sx={{ display: 'flex' }}>
               <TextField
@@ -136,27 +159,16 @@ const ModifierForfait = () => {
                 alignItems: 'center',
               }}
             >
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  marginRight: '100px',
-                  backgroundColor: '#4caf50',
-                  color: '#fff',
-                }}
-              >
-                Enregistrer
-              </Button>
-              <Button
-                variant="contained"
-                startIcon={<CancelIcon />}
-                component={Link}
-                to="/forfaits"
-                sx={{ backgroundColor: '#f44336', color: '#fff' }}
-              >
-                Annuler
-              </Button>
+             
             </Box>
+            <Stack direction={'row'} justifyContent={'space-between'}>
+            <Button variant="outlined" component={Link} to="/forfaits">
+              Annuler
+            </Button>
+            <Button type="submit" variant="contained" disableElevation>
+              Enregistrer
+            </Button>
+          </Stack>
           </form>
         )}
       </div>

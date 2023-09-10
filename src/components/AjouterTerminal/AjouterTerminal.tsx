@@ -36,19 +36,67 @@ function AddTerminal() {
   const handleCreerTerminal =() =>{
     alert("creer")
   }
+  const [formData, setFormData] = useState({
+    imei: '',
+  nomTerminal: '',
+  rfTerminal: '',
+  dateReception: '',
+  dateCession: ''
+// Autres champs du formulaire
+});
 
   const renderForm = (step: number) => {
     switch (step) {
       case 0:
         return (
           <form>
+            <Box sx={{ display: 'flex', gap: '20px', margin: '10px' }}>
             <TextField
+              label="Nom terminal"
+              variant="outlined"
+              fullWidth
+              value={nomTerminal}
+              onChange={(e) => setNomTerminal(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Imei"
+              variant="outlined"
+              fullWidth
+              value={imei}
+              onChange={(e) => setIMEI(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+            </Box>
+            <Box sx={{ display: 'flex', gap: '20px', margin: '10px' }}>
+            <TextField
+              label="Etat du terminal"
+              variant="outlined"
+              fullWidth
+              value={etatTerminal}
+              onChange={(e) => setEtateTerminal(e.target.value)}
+              sx={{ mb: 2 }}
+              select
+            />
+            <TextField
+              label="Type Terminal"
+              variant="outlined"
+              fullWidth
+              value={typeTerminal}
+              onChange={(e) => setTypeTerminal(e.target.value)}
+              sx={{ mb: 2 }}
+              select
+            />
+            </Box>
+             <Box sx={{ display: 'flex', gap: '20px', margin: '10px' }}>
+             <TextField
               label="Date de réception"
               variant="outlined"
               fullWidth
               value={dateReception}
               onChange={(e) => setDateReception(e.target.value)}
               sx={{ mb: 2 }}
+              
             />
             <TextField
               label="Date de cession"
@@ -58,38 +106,10 @@ function AddTerminal() {
               onChange={(e) => setDateCession(e.target.value)}
               sx={{ mb: 2 }}
             />
-             <TextField
-              label="Imei"
-              variant="outlined"
-              fullWidth
-              value={imei}
-              onChange={(e) => setIMEI(e.target.value)}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="Nom terminal"
-              variant="outlined"
-              fullWidth
-              value={nomTerminal}
-              onChange={(e) => setNomTerminal(e.target.value)}
-              sx={{ mb: 2 }}
-            />
-             <TextField
-              label="Type Terminal"
-              variant="outlined"
-              fullWidth
-              value={typeTerminal}
-              onChange={(e) => setTypeTerminal(e.target.value)}
-              sx={{ mb: 2 }}
-            />
-             <TextField
-              label="Etat du terminal"
-              variant="outlined"
-              fullWidth
-              value={etatTerminal}
-              onChange={(e) => setEtateTerminal(e.target.value)}
-              sx={{ mb: 2 }}
-            />
+             </Box>
+            
+               
+            
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', py: 1 }}>
               <Button
                 onClick={handleCreerTerminal}

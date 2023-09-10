@@ -13,8 +13,8 @@ import { Terminal } from '@mui/icons-material';
 
 const steps = [
   'Création du bénéficiaire',
-  'Affecter un terminal',
-  'Affecter un forfait',
+  'Affectation du ligne',
+  
 ];
 
 export default function HorizontalNonLinearStepper() {
@@ -245,6 +245,7 @@ export default function HorizontalNonLinearStepper() {
     nom: '',
     prenom: '',
     matricule: '',
+    dateDepart: '',
     rfBeneficiaire: '',
     rfDirection: '',
     centreCout: '',
@@ -346,6 +347,35 @@ export default function HorizontalNonLinearStepper() {
               </TextField>
             </Box>
             <Box>
+            <TextField
+                label="Date depart"
+                variant="outlined"
+                fullWidth
+                value={formData.dateDepart}
+                onChange={(e) =>
+                  setFormData({ ...formData, dateDepart: e.target.value })
+                }
+              />
+            </Box>
+           
+                
+          
+           
+          </form>
+        );
+      case 1:
+        return (
+          <form>
+            
+            <Box  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: '',
+    width:'100% ',
+    justifyContent: 'center',
+    height: '', // Cette propriété assure que le Box occupe toute la hauteur de la vue
+    margin: 'auto', // Pour centrer le Box horizontalement et verticalement
+  }}>
             <FormControl fullWidth variant="outlined" margin="normal">
               <InputLabel id="select-ligne-label">Ligne</InputLabel>
               <Select
@@ -364,52 +394,13 @@ export default function HorizontalNonLinearStepper() {
             </FormControl>
             
                 </Box>
-                <Box>
-                  <FormControl fullWidth variant="outlined" margin="normal">
-                  <InputLabel id="select-classe-beneficiaire-label">Classe de bénéficiaire</InputLabel>
-                  <Select
-                    labelId="select-classe-beneficiaire-label"
-                    id="select-classe-beneficiaire"
-                    value={selectedClasseBeneficiaire}
-                    onChange={handleClasseBeneficiaireChange}
-                    label="Classe de bénéficiaire"
-                  >
-                    {classesBeneficiaires.map((classeBeneficiaire) => (
-                      <MenuItem key={classeBeneficiaire.id} value={classeBeneficiaire.label}>
-                        {classeBeneficiaire.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                </Box>
-          
-            <Box sx={{display: 'flex', justifyContent: 'flex-end', py: 1}}>
+                <Box sx={{display: 'flex', justifyContent: 'flex-end', py: 1}}>
             <Button onClick={handleCreerBeneficiaire} variant='contained' disableElevation>Creer</Button>
             
             </Box>
           </form>
         );
-      case 1:
-        return (
-          <form>
-            <TextField
-              label="Les téléphones disponibles"
-              variant="outlined"
-              fullWidth
-              select
-              sx={{ width: '50%' }}
-              value={selectedTelephone}
-              onChange={handleTelephoneChange}
-            >
-              {telephones.map((telephone) => (
-                <MenuItem key={telephone.id} value={telephone.id}>
-                  {telephone.imei}
-                </MenuItem>
-              ))}
-            </TextField>
-          </form>
-        );
-      case 2:
+      // case 2:
         return (
           <form>
             {/* Votre formulaire pour la troisième étape */}

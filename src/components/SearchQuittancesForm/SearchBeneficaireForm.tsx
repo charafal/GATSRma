@@ -81,6 +81,7 @@ const SearchMultiCriteriaForm = () => {
   const [matricule, setMatricule] = React.useState('');
   const [numLigne, setligne] = React.useState('');
   const [nomforfait, setForfait] = React.useState('');
+  const [ dateDepart, setdateDepart]= useState('');
 
   const [mounted, setMounted] = useState(false);
 
@@ -94,6 +95,9 @@ const SearchMultiCriteriaForm = () => {
   // };
   const handlerfDirectionChange = (event: SelectChangeEvent) => {
     setrfDirection(event.target.value as string);
+  };
+  const handlerfDateDepartChange = (event: SelectChangeEvent) => {
+    setdateDepart(event.target.value as string);
   };
 
   const handleForfaitChange = (event: SelectChangeEvent) => {
@@ -274,6 +278,7 @@ const SearchMultiCriteriaForm = () => {
                 ))}
               </Select>
             </FormControl>
+            
 
             {/* <FormControl>
           <LocalizationProvider dateAdapter={AdapterDayjs}>

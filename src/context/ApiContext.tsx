@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { IBeneficiare, ILigne, ITerminal } from './types';
+import { IBeneficiare, ILigne, ITerminal , IFacture} from './types';
 import { IForfait } from './types';
 
 
@@ -8,11 +8,13 @@ interface IApiContext {
     nom,
     prenom,
     matricule,
+  
     rfDirection
   }: {
     nom: string;
     prenom: string;
     matricule: string;
+    
     rfDirection: string
   }) => Promise<IBeneficiare[]>;
  
@@ -29,6 +31,18 @@ interface IApiContext {
   soldeAppels: string;
   montant: string;
   }) => Promise<IForfait[]>;
+  getFactures: ({
+    mois,
+    annee,
+    
+     
+   }: {
+    mois: string;
+    annee: string;
+  
+     
+    
+    }) => Promise<IFacture[]>;
 
   getTerminals: ({
     imei,
@@ -50,6 +64,7 @@ interface IApiContext {
     nom,
     prenom,
     matricule,
+   
     centreCout,
     rfDirection,
     rfBeneficiaire,
@@ -58,6 +73,7 @@ interface IApiContext {
     nom: string;
     prenom: string;
     matricule: string;
+    
     centreCout: number;
     rfDirection: number;
     rfBeneficiaire: number;
@@ -94,6 +110,7 @@ interface IApiContext {
     numLigne,
     rfLigne,
     forfait,
+    terminal,
     direction,
     date_activation,
     date_resilliation,
@@ -101,6 +118,7 @@ interface IApiContext {
     numLigne: string;
     rfLigne: string;
     forfait:string;
+    terminal: string;
     direction: string;
     date_activation: string;
     date_resilliation: string;
@@ -108,15 +126,17 @@ interface IApiContext {
 
   getLignes: ({
     numLigne,
-    rfLigne,
+    refLigne,
     forfait,
+    terminal,
     direction,  
     date_activation,
     date_resilliation,
   }:{                               
     numLigne: string;
-    rfLigne: string;
+    refLigne: string;
     forfait:string;
+    terminal: string;
     direction: string;
     date_activation: string;
     date_resilliation: string;
@@ -125,6 +145,7 @@ interface IApiContext {
   beneficaires: IBeneficiare[] | null;
   forfaits: IForfait[] | null;
   terminals: ITerminal[] | null;
+  factures: IFacture[] | null;
   lignes: ILigne[] | null;
 }
 
@@ -137,10 +158,12 @@ const ApiContext = createContext<IApiContext>({
   getForfaits: async () => [],
   getTerminals: async () => [],
   getLignes: async () => [],
+  getFactures: async () => [],
   addLigne: async () => [],
   forfaits: [],
   beneficaires: [],
   terminals: [],
+  factures: [],
   lignes: [],
   loading: false,
 });

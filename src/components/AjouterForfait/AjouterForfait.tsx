@@ -49,6 +49,7 @@ function HorizontalNonLinearStepper() {
 
     fetchRfForfait();
   }, []);
+  
 
   const totalSteps = () => {
     return steps.length;

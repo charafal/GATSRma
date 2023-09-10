@@ -16,6 +16,7 @@ import Ligne from './pages/Ligne';
 import Service from './pages/Service';
 import Facture from './pages/Facture';
 import AjouterLigne from './components/AjouterLigne/AjouterLigne';
+import ModifierLigne from './components/ModifierLigne/ModifierLigne';
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
               <Route
                 path="/ModifierForfait/:id"
                 element={<ModifierForfait />}
+              />
+              <Route
+                path="/ModifierLigne/:id"
+                element={<ModifierLigne />}
               />
               <Route path="terminals" element={<Terminal />} />
               <Route path="forfaits" element={<Forfait />} />

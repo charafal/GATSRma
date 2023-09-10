@@ -5,6 +5,7 @@ export interface IBeneficiare {
   terminal: String;
   imei: String;
   matricule: String;
+  dateDepart: string;
   direction: String;
   centreCout: String;
   statut: String;
@@ -32,7 +33,7 @@ export interface ITerminal {
   id: number;
   imei: string;
   nomTerminal: string;
-  etatTerminal: String;
+  rfTerminal: string;
   dateReception: String;
   dateCession: String;
   action: any;
@@ -40,10 +41,21 @@ export interface ITerminal {
 export interface ILigne{
   id: number;
   numLigne: String;
-  rfLigne: String;
-  direction:String;
+  refLigne: string;
+  //direction:String;
   forfait: String ;
+  terminal: string;
   date_activation: String;
   date_resilliation: String;
   action: any;
+}
+export interface IFacture{
+  id: number;
+  forfait: string;
+  nom: string;
+  prenom: string;
+  numLigne: string;
+  matricule: string;
+  montant: string;
+  action : any;
 }

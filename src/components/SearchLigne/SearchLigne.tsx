@@ -32,7 +32,8 @@ const LigneSearch = () => {
   const [forfaits, setForfaits] = useState([]);
   const [numLigne, setNumLigne] = useState("");
   const [forfait, setForfait] = useState("");
-  const[rfLigne, setRfLigne]= useState("");
+  const[refLigne, setRefLigne]= useState("");
+  const[terminal, setterminal]= useState('');
   const [direction, setDirection] = useState("");
   const [date_activation, setDate_activation] = useState("");
   const [date_resilliation, setData_resilliation] = useState("");
@@ -60,6 +61,11 @@ const LigneSearch = () => {
   }) => {
     setForfait(event.target.value);
   };
+  const handleRefLigneChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setRefLigne(event.target.value);
+  };
   const handleDirectionChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
@@ -80,8 +86,9 @@ const LigneSearch = () => {
     try {
       await getLignes({
        numLigne: numLigne,
-       rfLigne: rfLigne,
+       refLigne: refLigne,
        forfait: forfait,
+       terminal: terminal,
        direction: direction,
        date_activation: date_activation,
        date_resilliation: date_resilliation,
@@ -92,7 +99,7 @@ const LigneSearch = () => {
     }
   };
 
-  const handleAjouter = () => {
+  const   handleAjouter = () => {
     // Ajoutez ici la logique pour le bouton "Ajouter"
     // Cette fonction sera exécutée lorsque le bouton "Ajouter" sera cliqué
     navigate('/AjouterLigne ');

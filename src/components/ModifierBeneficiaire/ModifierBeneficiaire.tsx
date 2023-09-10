@@ -61,6 +61,7 @@ const ModifierBeneficiaire = () => {
     centreCout: string;
     direction: string;
     rfBeneficiaire: string;
+    ligne: string;
     // Add other properties here if needed
   };
 
@@ -149,9 +150,6 @@ const ModifierBeneficiaire = () => {
         },
         centreCout: {
           id: centreCout, // Mettez à jour avec l'objet complet du centre de cout
-        },
-        rfBeneficiaire:{
-          id: beneficiaire,
         }
       };
       

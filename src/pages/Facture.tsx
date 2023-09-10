@@ -1,10 +1,15 @@
 import React from 'react';
+import SearchFacture from '../components/SearchFacture/SearchFacture';
+import EnhancedTable from '../components/Table/Table';
+
 
 
 const Facture = () => {
   return (
     <>
-      <h1>hello i'm page facture</h1>
+      <SearchFacture onSearch={function (mois: string, annee: string): void {
+        throw new Error('Function not implemented.');
+      } } />
     </>
   );
 };

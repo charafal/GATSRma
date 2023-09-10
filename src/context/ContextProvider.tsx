@@ -5,6 +5,7 @@ import { IBeneficiare} from './types';
 import { IForfait } from './types';
 import { ITerminal } from './types';
 import { ILigne } from './types';
+import { IFacture } from './types';
 interface IContextProviderProps {
   children: ReactNode;
 }
@@ -14,17 +15,19 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   const [beneficaires, setBeneficaires] = useState<IBeneficiare[] | null>(null);
   const [forfaits, setForfaits] = useState<IForfait[] | null>(null);
   const [terminals, setTerminals] = useState<ITerminal[] | null>(null);
+  const [factures, setFactures] = useState<IFacture[] | null>(null);
   const [lignes, setLignes] = useState<ILigne[] | null>(null);
   const getBeneficiaires = async ({
     nom,
     prenom,
     matricule,
-    rfDirection,
+   
   }: {
     nom: string;
     prenom: string;
     matricule: string;
-    rfDirection: string;
+    
+    
   }): Promise<IBeneficiare[]> => {
     setLoading(true);
     try {
@@ -121,15 +124,17 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   };
   const getLignes = async ({
     numLigne,
-    rfLigne,
+    refLigne,
     forfait,
+    terminal,
     direction,
     date_activation,
     date_resilliation,
   }: {
     numLigne: string;
-    rfLigne: string;
+    refLigne: string;
     forfait: string;
+    terminal: string;
     direction: string;
     date_activation: string;
     date_resilliation: string;
@@ -149,12 +154,38 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
       return [];
     }
   };
+   const getFactures = async ({
+    mois,
+    annee,
+   
+   }: {
+    mois: string;
+    annee: string;
+  
+    
+    }) : Promise<IFacture[]> =>{
+      setLoading(true);
+    try {
+      const response = await axios.get(
+        'http://localhost:8089/beneficiaire/mois/07',
+      );
+      console.log(response.data);
+      setFactures(response.data);
+      setLoading(false);
+      return response.data as IFacture[];
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      return [];
+    }
+    };
   
 
   const addBeneficiaire = async ({
     nom,
     prenom,
     matricule,
+    
     centreCout,
     rfDirection,
     rfBeneficiaire,
@@ -163,6 +194,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     nom: string;
     prenom: string;
     matricule: string;
+   
     centreCout: number;
     rfDirection: number;
     rfBeneficiaire: number;
@@ -273,6 +305,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     numLigne,
     rfLigne,
     forfait,
+    terminal,
     direction,
     date_activation,
     date_resilliation,
@@ -280,6 +313,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
     numLigne: string;
     rfLigne: string
     forfait: string;
+    terminal: string;
     direction: string;
     date_activation: string;
     date_resilliation: string;
@@ -292,6 +326,7 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
           numLigne: numLigne,
           rfLigne: rfLigne,
           forfait: forfait,
+          terminal: terminal,
           direction: direction,
           date_activation: date_activation,
           date_resilliation: date_resilliation,
@@ -314,18 +349,20 @@ const ContextProvider = ({ children }: IContextProviderProps) => {
   
 
   const apiContextValue = {
-    getBeneficiaires,
+  getBeneficiaires,
   addBeneficiaire,
   addForfait,
   addTerminal,
   addLigne,
   getForfaits,
   getTerminals,
+  getFactures,
   getLignes,
   forfaits: forfaits,
   terminals: terminals,
   beneficaires: beneficaires,
   lignes: lignes,
+  factures: factures,
   loading,
   };
 
