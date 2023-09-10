@@ -7,9 +7,13 @@ import {AiOutlineUser}  from 'react-icons/ai';
 import {BsArrowDownRight} from 'react-icons/bs';
 import {BsFillPhoneFill}  from 'react-icons/bs';
 import { BsSim } from 'react-icons/bs';
+import LineChart from '../components/chart/LineChart';
+import { PieChart } from '@mui/icons-material';
+import DoughnutChart from '../components/chart/DoghnutChart';
 
 export default function Dashboard() {
   return (
+    <Stack>
     <Box ml={5} mr={5} style={{
       display: 'flex',
       flexDirection: 'row',
@@ -426,6 +430,12 @@ export default function Dashboard() {
         }}>par rapport à l'année dernière</div>
         </Box>
       </Box>
+      
     </Box>
+    <Stack direction={'row'} justifyContent={'space-between'} ml={5} mr={5} mt={5}>
+    <LineChart/>
+    <DoughnutChart/>
+    </Stack>
+    </Stack>
   );
 }
